@@ -30,10 +30,16 @@ model training workload is not a database benchmark.
 
 ## Current availability
 
-The build and protocol checks are executable. The product, matched SQL baseline
-and performance harness are still planned. There is therefore no valid product
-optimization result yet. Research can inform those implementations immediately;
-benchmark experiments begin when the corresponding executable baseline exists.
+The product extension, independent SQL retrieval control, system tests and paired
+SQL smoke runner are executable. The control still has documented response-budget
+and serialization differences; the smoke fixture is synthetic and timings include
+fresh client connections. These do not establish a performance or token advantage.
+
+Before an optimization experiment, verify that its comparison arms match the
+specific behavior and budget being measured. The full recall, memory and live-agent
+protocol still needs datasets and recorded runs. Vector compression candidates,
+including TurboQuant, are tracked in [the experiment plan](vector-compression.md);
+none is enabled by default.
 
 The project's coordinator runs the reasoning and opens GitHub proposals; Actions
 provides reproducible checks. No model credential is stored in this repository and

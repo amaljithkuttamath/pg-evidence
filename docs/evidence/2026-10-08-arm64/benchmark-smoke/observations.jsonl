@@ -1,0 +1,10 @@
+{"pair": 0, "arm": "candidate", "ok": true, "client_ms": 5.344249999978956, "result_sha256": "34e9ab0e4eb2580f7109f598eb32ed9ec686131a9a72be7dcb470a37936c14a2"}
+{"pair": 0, "arm": "baseline", "ok": true, "client_ms": 5.4471669999998085, "result_sha256": "34e9ab0e4eb2580f7109f598eb32ed9ec686131a9a72be7dcb470a37936c14a2"}
+{"pair": 1, "arm": "baseline", "ok": true, "client_ms": 5.28270799998154, "result_sha256": "34e9ab0e4eb2580f7109f598eb32ed9ec686131a9a72be7dcb470a37936c14a2"}
+{"pair": 1, "arm": "candidate", "ok": true, "client_ms": 4.9633750000168675, "result_sha256": "34e9ab0e4eb2580f7109f598eb32ed9ec686131a9a72be7dcb470a37936c14a2"}
+{"pair": 2, "arm": "baseline", "ok": true, "client_ms": 5.293041000015819, "result_sha256": "34e9ab0e4eb2580f7109f598eb32ed9ec686131a9a72be7dcb470a37936c14a2"}
+{"pair": 2, "arm": "candidate", "ok": true, "client_ms": 4.582500000026357, "result_sha256": "34e9ab0e4eb2580f7109f598eb32ed9ec686131a9a72be7dcb470a37936c14a2"}
+{"pair": 3, "arm": "candidate", "ok": true, "client_ms": 4.561000000023796, "result_sha256": "34e9ab0e4eb2580f7109f598eb32ed9ec686131a9a72be7dcb470a37936c14a2"}
+{"pair": 3, "arm": "baseline", "ok": true, "client_ms": 5.413792000013018, "result_sha256": "34e9ab0e4eb2580f7109f598eb32ed9ec686131a9a72be7dcb470a37936c14a2"}
+{"pair": 4, "arm": "candidate", "ok": true, "client_ms": 4.595332999997481, "result_sha256": "34e9ab0e4eb2580f7109f598eb32ed9ec686131a9a72be7dcb470a37936c14a2"}
+{"pair": 4, "arm": "baseline", "ok": true, "client_ms": 5.3612919999750375, "result_sha256": "34e9ab0e4eb2580f7109f598eb32ed9ec686131a9a72be7dcb470a37936c14a2"}

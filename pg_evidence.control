@@ -1,0 +1,7 @@
+comment = 'pg-evidence: versioned evidence and bounded retrieval'
+default_version = '@CARGO_VERSION@'
+module_pathname = 'pg_evidence'
+schema = evidence
+relocatable = false
+superuser = true
+trusted = false

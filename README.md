@@ -2,63 +2,96 @@
 
 **Versioned evidence and bounded retrieval for PostgreSQL.**
 
-Native x86-64 CI is pending activation. [Development evidence](docs/build-environment.md).
+A Rust extension for agents that search documents, follow explicit relationships,
+and cite the exact text they used. Store a source once, retrieve small excerpts,
+and resolve a citation after the source changes.
 
-An experimental Rust extension for agents that need to retrieve evidence, follow
-explicit relationships and return citations that remain meaningful after a source
-changes.
+**0.1.0 development preview.** Verified on ARM Linux: 62 Rust/backend tests,
+24 system tests and a fresh Docker installation check pass. License selection
+and native x86-64 CI activation are pending.
+No token-saving, speed or production-scale claim is made.
 
-**Development stage:** the Rust/PostgreSQL build probe and benchmark protocol work.
-The product extension is not implemented or released yet. License selection is
-pending.
+## What it does
 
-## Why build this?
+- **Stable citations.** Evidence IDs bind to immutable version IDs and UTF-8 byte
+  ranges. Resolving a citation verifies its source digest and exact span.
+- **Search in one place.** Literal, regex and PostgreSQL full-text search;
+  optional pgvector cosine search with client-generated embeddings.
+- **Composable retrieval.** Combine searches, asset tags and one-hop evidence
+  relationships before sending results to an agent.
+- **Bounded responses.** Limit candidates, excerpts, relationships and the exact
+  serialized response size. Truncation and approximate search are explicit.
+- **Ordinary PostgreSQL operations.** Invoker permissions, transactions,
+  dump/restore and corpus tables that survive dropping the extension.
 
-| Problem | Intended benefit | Evidence required |
-|---|---|---|
-| A source changes after an agent cites it | Resolve the exact retained version and byte span | Update, purge and restore tests |
-| Tools send too much text back to the model | Return bounded excerpts and compose operations before rendering | Paired agent trials at a fixed answer-quality margin |
-| Search, tags and provenance live in separate services | Query them under PostgreSQL permissions and transactions | Matched SQL baseline, permission and concurrency tests |
-| Fast search claims hide recall or memory costs | Report latency, recall, memory and failures together | Filtered/history benchmarks with identical datasets |
+The use case is an agent that needs inspectable, versioned evidence inside an
+existing PostgreSQL deployment. Embedding generation stays in the client. Video
+processing, arbitrary code execution and a new storage engine are outside v0.1.
 
-These are design goals. **No token-reduction or performance result is claimed.**
+## Build and try it
 
-## Scope
-
-The proposed first release combines immutable text versions, exact citations,
-literal and full-text search, pgvector retrieval, tags, one-hop relationships and
-bounded composed queries. Embeddings are generated outside PostgreSQL.
-
-See the [proposed contract](docs/design.md), [roadmap](docs/roadmap.md) and
-[benchmark method](docs/benchmark-method.md). Video, a new storage engine and
-arbitrary code execution inside the database are outside the initial scope.
-
-## Development quickstart
-
-Requires Python 3.11+ and Docker with BuildKit. Rust and PostgreSQL build tools run
-inside Docker. The source tree currently contains a **probe**, not an installable
-`pg_evidence` product extension.
+Requires Docker with BuildKit and Python 3.11+. Rust and PostgreSQL build tools run
+inside Docker. Use a host matching the selected architecture, several gigabytes
+of free storage and sufficient Docker memory; the development build used 8 GiB.
 
 ```sh
 git clone https://github.com/amaljithkuttamath/pg-evidence.git
 cd pg-evidence
-python3 -m unittest discover -s bench/tests -p 'test_*.py'
-python3 -m unittest discover -s packaging/tests -p 'test_*.py'
-python3 -m bench.protocol --check bench/protocol.json
 
-# Use linux/amd64 on an x86-64 host; linux/arm64 on Apple silicon.
-BUILD_JOBS=2 packaging/run-probe.sh linux/amd64 "$PWD/packaging/artifacts/probe/out"
+# Use linux/arm64 on Apple silicon; linux/amd64 on an x86-64 host.
+BUILD_JOBS=2 packaging/run-product.sh linux/arm64 "$PWD/packaging/artifacts/product"
+
+docker build --platform linux/arm64 -f packaging/Dockerfile.runtime \
+  -t pg-evidence:0.1.0-dev packaging/artifacts/product
+packaging/check-runtime.sh pg-evidence:0.1.0-dev
 ```
 
-The build runner checks free space, exports diagnostic logs and rejects failed or
-missing mandatory probe steps. [Build details and verified scope](docs/build-environment.md).
+The build runs Rust/backend tests, installs the release library, runs independent
+PostgreSQL system tests, checks dump/restore and compares a retrieval result with
+plain SQL. It exports the installable library, control file, SQL, checksums and
+logs. Failed attempts retain diagnostics and return a nonzero status.
 
-## Research and releases
+To use an installed package:
 
-[Autoresearch](docs/autoresearch.md) tracks upstream research and bounded benchmark
-experiments. Correctness and evaluation rules stay fixed during an experiment.
-Every proposed improvement needs reproducible evidence and review.
+```sql
+CREATE EXTENSION pg_evidence;
+SELECT evidence.init_collection('docs', '{}'::jsonb);
+SET statement_timeout = '10s';
 
-GitHub will host source, CI evidence and versioned release assets. A usable package
-release waits for the core extension and its acceptance tests. No product package
-has been published. See [contributing](CONTRIBUTING.md) to help.
+-- After staging and publishing documents:
+SELECT evidence.query('docs', '{
+  "nodes": [{"id": "hits", "op": "literal", "text": "retrieval", "limit": 5}],
+  "output": "hits",
+  "excerpt_bytes": 512
+}'::jsonb);
+```
+
+See [examples](examples/README.md) for ingestion and agent tools,
+[the API](docs/api.md) for request/response contracts and
+[operations](docs/operations.md) for grants, backup and retention.
+
+## Evidence before claims
+
+[Build evidence](docs/build-environment.md) records the tested platform and
+commands. [Benchmarks](docs/benchmark-method.md) separate correctness, latency,
+recall, memory and agent token usage. The small SQL smoke comparison checks equal
+results; it does not establish an advantage over another extension.
+
+[Autoresearch](docs/autoresearch.md) covers upstream research and bounded code
+experiments against a fixed evaluator. Improvements require retained raw results
+and review. See the [release gates](docs/roadmap.md) for outstanding work.
+
+## Source map
+
+| Area | Source |
+|---|---|
+| SQL entry points and PostgreSQL bindings | [src/lib.rs](src/lib.rs), [src/db.rs](src/db.rs) |
+| Validation and version lifecycle | [src/model.rs](src/model.rs), [src/ops.rs](src/ops.rs) |
+| Query planning and bounded rendering | [src/plan.rs](src/plan.rs), [src/render.rs](src/render.rs) |
+| Corpus schema | [src/ddl.rs](src/ddl.rs) |
+| Backend and multi-session tests | [src/tests](src/tests), [tests/system](tests/system) |
+| SQL comparison arm | [baseline](baseline/README.md) |
+| Reproducible builds and install artifacts | [packaging](packaging) |
+
+Contributions should include behavior tests and reproducible verification. Read
+[CONTRIBUTING.md](CONTRIBUTING.md) and the [contract](docs/design.md) first.

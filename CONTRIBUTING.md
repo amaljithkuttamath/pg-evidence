@@ -1,6 +1,6 @@
 # Contributing
 
-Start with the [roadmap](docs/roadmap.md) and [proposed contract](docs/design.md).
+Start with the [roadmap](docs/roadmap.md) and [contract](docs/design.md).
 The project is experimental and its license is undecided. A product release is
 not available yet.
 
@@ -15,8 +15,10 @@ python3 -m unittest discover -s packaging/tests -p 'test_*.py'
 python3 -m bench.protocol --check bench/protocol.json
 ```
 
-Use [the Docker probe](docs/build-environment.md) for toolchain changes. The negative
-integration-test experiment is intentional and must remain explicitly reported.
+Run `packaging/run-product.sh` for database changes; it builds the actual
+extension and exercises backend, multi-session and restore behavior. See
+[build details](docs/build-environment.md). The older toolchain probe is retained
+for toolchain investigations, including its intentional negative layout test.
 
 Performance proposals need a baseline, controlled inputs, retained raw results and
 correctness checks. Do not change the evaluator and optimized implementation in the
