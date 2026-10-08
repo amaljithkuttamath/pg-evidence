@@ -91,3 +91,15 @@ RUN --mount=type=tmpfs,target=/work \
 
 FROM scratch AS probe-results
 COPY --from=probe /out /
+
+FROM build-env AS product
+ARG PRODUCT_BUILD_JOBS=1
+USER root
+RUN --mount=type=tmpfs,target=/work \
+    --mount=type=bind,source=.,target=/src/product \
+    mkdir -p /out && chown builder /work /out && \
+    runuser -u builder -- env CARGO_BUILD_JOBS="${PRODUCT_BUILD_JOBS}" bash /src/product/packaging/product-steps.sh; \
+    echo "product-steps exit $?" > /out/build-exit.txt
+
+FROM scratch AS product-results
+COPY --from=product /out /

@@ -1,0 +1,31 @@
+# pg-evidence v0.1 product extension. Contract: docs/design.md; API: docs/api.md.
+[package]
+name = "pg_evidence"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[lib]
+crate-type = ["cdylib", "lib"]
+
+[features]
+default = ["pg18"]
+pg18 = ["pgrx/pg18", "pgrx-tests/pg18"]
+pg_test = []
+
+[dependencies]
+pgrx = "=0.19.3"
+serde_json = "1"
+sha2 = "0.11"
+
+[dev-dependencies]
+pgrx-tests = "=0.19.3"
+
+[profile.dev]
+panic = "unwind"
+
+[profile.release]
+panic = "unwind"
+opt-level = 3
+lto = "fat"
+codegen-units = 1

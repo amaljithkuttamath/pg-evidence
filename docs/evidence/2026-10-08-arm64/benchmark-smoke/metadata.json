@@ -1,0 +1,11 @@
+{
+  "kind": "development_smoke",
+  "client": "psql_fresh_connection_per_sample",
+  "random_seed": 101,
+  "timeout_ms": 10000,
+  "sql_sha256": [
+    "f09449e124aeac1a20c470cb5eb4622cfdba04d67ad15a90f12b1cc28a493873",
+    "33fb9d44194030394f99a7bbbb00541c6f540f1afbef6ab7fc64a091a07c6890"
+  ],
+  "release_evidence": false
+}

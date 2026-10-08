@@ -1,0 +1,17 @@
+# Context: a verified run-product output directory. Platform must match that build.
+# docker build --platform linux/arm64 -f packaging/Dockerfile.runtime \
+#   -t pg-evidence:0.1.0-dev packaging/artifacts/product-arm64
+ARG BASE_IMAGE=pgvector/pgvector:0.8.7-pg18-trixie@sha256:9d9c930220cb9bf2f956d10a8f909cf9973d9672ca0278aef2c1e6facccad2e0
+FROM ${BASE_IMAGE}
+COPY package /tmp/pg-evidence-install/package
+COPY SHA256SUMS /tmp/pg-evidence-install/SHA256SUMS
+RUN set -eu; \
+    cd /tmp/pg-evidence-install; \
+    sha256sum -c SHA256SUMS; \
+    cp package/lib/pg_evidence.so /usr/lib/postgresql/18/lib/; \
+    cp package/extension/pg_evidence.control package/extension/pg_evidence--*.sql \
+       /usr/share/postgresql/18/extension/; \
+    rm -rf /tmp/pg-evidence-install
+LABEL org.opencontainers.image.title="pg-evidence" \
+      org.opencontainers.image.description="Versioned evidence and bounded retrieval for PostgreSQL" \
+      org.opencontainers.image.source="https://github.com/amaljithkuttamath/pg-evidence"

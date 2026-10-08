@@ -1,0 +1,14 @@
+{
+  "baseline": {
+    "samples": 5,
+    "median_client_ms": 5.3612919999750375,
+    "min_client_ms": 5.28270799998154,
+    "max_client_ms": 5.4471669999998085
+  },
+  "candidate": {
+    "samples": 5,
+    "median_client_ms": 4.595332999997481,
+    "min_client_ms": 4.561000000023796,
+    "max_client_ms": 5.344249999978956
+  }
+}

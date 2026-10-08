@@ -1,53 +1,77 @@
-# Development build
+# Build and verification
 
-The probe has built and loaded on ARM Linux with PostgreSQL 18.6, pgvector 0.8.7,
-Rust 1.99.0 and pgrx 0.19.3. A second temporary build with the committed Cargo.lock
-produced matching library, SQL and control-file checksums. Both used the same
-cached environment layers; cross-host bit-for-bit reproducibility is not claimed.
-Exact observed versions and checksums are in [versions.json](../packaging/versions.json).
+The **actual pg_evidence 0.1.0 extension** has built, installed and passed its
+current verification suite on native ARM Linux in Docker: 32 pure Rust tests,
+30 PostgreSQL backend tests, 24 system tests and a fresh-runtime installation
+check. The stack is PostgreSQL 18.6, pgvector 0.8.7, Rust 1.99.0 and pgrx 0.19.3.
 
-The GitHub CI workflow is prepared to run the same probe on native x86-64 Linux,
-but activation is pending. Check the actual workflow result before claiming that
-target is verified. This proves the development
-stack, not product behavior or benchmark performance.
+The [verification record](evidence/2026-10-08-arm64/README.md) includes commands,
+logs, package checksums, exact build-input hashes, failure history and limitations.
+Native x86-64 CI remains pending activation; ARM results do not establish x86-64
+support. No public binary release, performance advantage or token saving is claimed.
 
-## Run
+## Build the product
+
+Requires Docker/BuildKit and Python 3.11+. No host Rust or PostgreSQL installation
+is needed. Use the platform matching the host:
 
 ```sh
-BUILD_JOBS=2 packaging/run-probe.sh linux/amd64 "$PWD/packaging/artifacts/probe/out"
-python3 packaging/check_probe.py packaging/artifacts/probe/out
+BUILD_JOBS=2 packaging/run-product.sh linux/arm64 "$PWD/packaging/artifacts/product"
+python3 packaging/packaging_check_product.py packaging/artifacts/product
 ```
 
-Use `linux/arm64` on an ARM host. Docker/BuildKit and Python 3.11+ are required.
-Allow several gigabytes of free storage and sufficient Docker VM memory. The
-runner refuses to start or cancels when free space on `GUARD_PATH` falls below
-`MIN_FREE_KB` (approximately 2.3 GiB by default). Lower Cargo parallelism reduces
-memory pressure. This guard is a cancellation threshold, not a maximum-disk guarantee.
+Use `linux/amd64` on an x86-64 host. The toolchain is cached between runs; the
+product stage always runs again. Test compilation and PostgreSQL data use tmpfs;
+the build exports only logs and install artifacts. Use sufficient Docker memory
+(the development VM had about 8 GiB) and several gigabytes of free disk.
 
-The BuildKit probe exports only logs. Cargo build outputs and PostgreSQL data use
-temporary memory-backed storage. It installs as an unprivileged user and starts
-PostgreSQL with a local socket and no TCP listener. No host PostgreSQL is required.
-The wrapper checks actual step outcomes after export; successful export alone is
-not a successful probe.
+The runner refuses to start or cancels when free space on `GUARD_PATH` falls below
+`MIN_FREE_KB` (about 2.3 GiB by default). This is a cancellation threshold, not a
+maximum-disk guarantee. `BUILD_JOBS` controls toolchain compilation; product
+compilation defaults to one job to keep memory pressure down.
 
-## Test layout
+A successful output directory contains:
 
-Two `#[pg_test]` functions compiled into the extension crate passed in PostgreSQL.
-The separate integration crate under `packaging/probe/tests/` was discovered, but
-its database function was absent from the installed extension. That expected
-negative result is preserved as a layout experiment, not reported as a pass.
+- `package/lib/pg_evidence.so` and `package/extension/` with control and SQL files.
+- A compressed install archive, `SHA256SUMS`, environment and source hashes.
+- Actual step statuses, backend/system logs and paired SQL smoke observations.
 
-Product backend tests will be modules included in the extension crate, using
-`src/tests/`. That split-module arrangement will be verified during scaffolding.
-The physical directory name alone does not determine whether a module is compiled
-into the extension.
+Failed attempts preserve their diagnostics and return a nonzero status. Successful
+BuildKit export alone does not mean the tests or package passed.
 
-## Reproducibility limits
+## Verify the runtime
 
-The base image is digest-pinned. Rust, cargo-pgrx, pgrx and PostgreSQL development
-headers have explicit versions; Cargo.lock pins the probe's Rust dependencies.
-Other Debian package versions are recorded but not all pinned. The PostgreSQL
-package may move to its archive when superseded. A release needs a clean build
-and installation check on its declared target, with its source and binary hashes.
+```sh
+docker build --platform linux/arm64 -f packaging/Dockerfile.runtime \
+  -t pg-evidence:0.1.0-dev packaging/artifacts/product
+packaging/check-runtime.sh pg-evidence:0.1.0-dev
+```
 
-This repository has no product release or performance measurements yet.
+The runtime check uses a fresh database, no container network and no TCP listener.
+It verifies historical citation resolution and role restrictions, then removes
+its disposable container. The image remains available for the [examples](../examples/README.md).
+
+## Reproducibility and remaining gates
+
+The base image is digest-pinned. Rust, cargo-pgrx, pgrx and PostgreSQL headers have
+explicit versions; Cargo.lock fixes Rust dependencies. Debian package versions are
+recorded, but not all are pinned. Superseded PostgreSQL packages may move to an
+archive. Cross-host bit-for-bit reproducibility is not established.
+
+The suite exercises concurrent publication, identical stage retries, tags during
+publish, two-node query composition, resolve around purge, and a forced link/unlink
+race. At `REPEATABLE READ`, the observed identical-stage race raised PostgreSQL's
+genuine `40001`; retry returned the retained IDs. Dump/restore preserved bytes,
+IDs and grants, and dropping/recreating the extension preserved corpus data.
+
+Coverage is empirical, not exhaustive. Active cancellation across every operator,
+history-heavy/filter-selective ANN recall, controlled scale/memory measurements and
+live-agent evaluation remain open. See [release gates](roadmap.md).
+
+## Earlier toolchain probe
+
+`packaging/run-probe.sh` is retained for toolchain investigations. Two backend
+functions compiled into its extension passed. A separate integration crate was
+intentionally shown to be the wrong layout: its database function was not installed.
+The product instead compiles `src/tests/` into its extension crate; that layout
+has now run successfully. Earlier probe pins are in [versions.json](../packaging/versions.json).

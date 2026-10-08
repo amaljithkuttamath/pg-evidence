@@ -1,11 +1,12 @@
-> Design specification. The product API is not implemented yet. Build probes
-> validate the toolchain only.
+> Implementation contract for the 0.1.0 development preview. See
+> [build evidence](build-environment.md) for verification and remaining limits.
 
-# Proposed extension contract
+# Extension contract
 
 A marker such as **G4** names an empirical build gate, listed below. The
 contract states required behavior; tests must establish whether its implementation
-delivers that behavior. Product APIs described here remain unimplemented.
+delivers that behavior. The Rust implementation is in `src/`; release gates
+are tracked in [the roadmap](roadmap.md).
 
 ### Schemas, encoding and input
 
@@ -38,7 +39,7 @@ delivers that behavior. Product APIs described here remain unimplemented.
   added with the first schema change, not shipped as a placeholder in v0.1. There
   is no extension-owned corpus registry.
 
-Proposed public functions. Request bodies stay `jsonb`; responses are `json`, so
+Public functions. Request bodies stay `jsonb`; responses are `json`, so
 the byte budget applies to the exact text the server returns:
 
 ```sql
@@ -58,8 +59,8 @@ unknown fields rejected. No embedding provider is called by these functions.
 
 Collection configuration: `embedding_model` and `embedding_dimensions` (both null
 for a collection without semantic search; dimensions 1 to 2,000, the pgvector HNSW
-limit for `vector`), `text_search_config` (a fixed `regconfig`), and the limits in
-C9. The limits are documented protective defaults, not measured capacity limits.
+limit for `vector`), `text_search_config` (a fixed `regconfig`), and the limits
+below. The limits are documented protective defaults, not measured capacity limits.
 
 ### Corpus objects
 
@@ -281,23 +282,26 @@ guess of short, low-entropy content. The operations guide must state these limit
 - Regex mode stays in scope. It uses PostgreSQL's regular-expression dialect via
   the `~` operator. Patterns are limited to 1 KiB (`22023`). It has no index or
   latency guarantee beyond the timeout.
-- **One statement per call.** Each `query` call compiles all retrieval, filtering,
-  traversal and excerpt fetching into a single SQL statement. Rust validates,
-  compiles and renders, and issues no second query, so one call observes one
-  snapshot whatever the isolation level or earlier writes in the transaction.
-  This is the single composition path for v0.1 (**G4**). `resolve` likewise
+- **One statement for evidence retrieval.** Each call first reads trusted
+  collection configuration and extension metadata. `query` then compiles all
+  retrieval, filtering, traversal and excerpt fetching into one SQL statement.
+  Rust renders those results without fetching evidence in additional statements.
+  Evidence therefore comes from one statement snapshot (**G4**); the implementation
+  does not claim one SPI call including metadata. `resolve` likewise
   reads tombstone, version and span in one statement, so it cannot interleave
   with a concurrent purge. An unknown evidence ID returns
   `{"status": "not_found"}`; staged and purged IDs return their status.
 - Results carry `evidence_id`, `version_id`, `asset_id`, path, offsets, excerpt,
   mode, endpoint status, and a truncation record: `requested`, `returned`,
   `truncated` and `underfilled`. Semantic results also carry
-  `approximate: true`. The envelope reports `readiness` per mode (`ready` or
-  `not_configured`), meeting the proposal's readiness requirement at collection
+  `approximate: true`. The envelope reports `readiness` per mode (`ready`,
+  `not_configured`, or `unavailable` when configured pgvector is missing), meeting the proposal's readiness requirement at collection
   level. No truncated or approximate result is labelled complete.
-- If rendering exceeds `max_response_bytes`, results are dropped whole from the
-  end and `truncated` is set. JSON bytes are never cut. If even the envelope
-  cannot fit, the call fails with `54000`.
+- If query rendering exceeds `max_response_bytes`, results are dropped whole
+  from the end and `truncated` is set. JSON bytes are never cut. If even the
+  envelope cannot fit, the call fails with `54000`. Mutation and resolve
+  responses must fit in full or fail with `54000`; a mutation error rolls back
+  its writes. This preserves all returned citation IDs and exact resolved text.
 - A collection with embedding configuration requires embeddings for every span
   before publication. All current evidence is therefore semantically ready.
   A collection without one rejects semantic mode (`22023`).

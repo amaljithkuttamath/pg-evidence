@@ -1,0 +1,3 @@
+2a822172d330c5725b86373a851a74798335996022fd860ffbb3389329153191  package/extension/pg_evidence--0.1.0.sql
+ba21c33f886bb1696aaf1e1a92c557a540eb20b1736559e09792522c872ccadf  package/extension/pg_evidence.control
+aed9863b78536767041bcfed75e748b8a41c840c9c6b0ecd580dd84e278e9500  package/lib/pg_evidence.so

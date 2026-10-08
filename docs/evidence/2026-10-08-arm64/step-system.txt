@@ -1,0 +1,222 @@
+initdb: warning: enabling "trust" authentication for local connections
+initdb: hint: You can change this by editing pg_hba.conf or using the option -A, or --auth-local and --auth-host, the next time you run initdb.
+waiting for server to start....2026-10-08 03:23:29.871 UTC [6625] LOG:  starting PostgreSQL 18.6 (Debian 18.6-1.pgdg13+2) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit
+2026-10-08 03:23:29.871 UTC [6625] LOG:  listening on Unix socket "/work/.s.PGSQL.5432"
+2026-10-08 03:23:29.872 UTC [6631] LOG:  database system was shut down at 2026-10-08 03:23:29 UTC
+2026-10-08 03:23:29.873 UTC [6625] LOG:  database system is ready to accept connections
+ done
+server started
+CREATE EXTENSION
+CREATE EXTENSION
+SET
+ init_collection
+-----------------
+
+(1 row)
+
+DO
+DO
+CREATE ROLE
+CREATE ROLE
+GRANT
+GRANT
+GRANT ROLE
+GRANT
+GRANT
+GRANT
+SET
+                                                                                                                                                                                            resolve
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ {"status":"historical","evidence_id":"e72703fe-7713-4a24-a21a-c17e911cdbca","version_id":"2bf5ac47-f487-4418-a6f4-14cccb8072dc","asset_id":"00000000-0000-0000-0000-000000000001","path":"source.txt","start_byte":0,"end_byte":9,"source_sha256":"72133e6883039363ca4b2835b991529f4ff755cbd51c0de206a05f8f8548eeec","byte_length":9,"published_revision":1,"text":"old café","verified":true}
+ {"status":"current","evidence_id":"b291503b-a952-44c3-857f-45004de6fa6a","version_id":"b7175a64-1407-428c-9a20-d5b5fb275f33","asset_id":"00000000-0000-0000-0000-000000000001","path":"source.txt","start_byte":0,"end_byte":8,"source_sha256":"cb0208b0b1fa06bc59f85c8b2be1e45ff2ef6ddbf0cef02e9f276b8208ea48ab","byte_length":8,"published_revision":2,"text":"new text","verified":true}
+(2 rows)
+
+RESET
+SET
+DO
+RESET
+DO
+DROP EXTENSION
+DO
+CREATE EXTENSION
+                                                                                                                                                                                            resolve
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ {"status":"historical","evidence_id":"e72703fe-7713-4a24-a21a-c17e911cdbca","version_id":"2bf5ac47-f487-4418-a6f4-14cccb8072dc","asset_id":"00000000-0000-0000-0000-000000000001","path":"source.txt","start_byte":0,"end_byte":9,"source_sha256":"72133e6883039363ca4b2835b991529f4ff755cbd51c0de206a05f8f8548eeec","byte_length":9,"published_revision":1,"text":"old café","verified":true}
+ {"status":"current","evidence_id":"b291503b-a952-44c3-857f-45004de6fa6a","version_id":"b7175a64-1407-428c-9a20-d5b5fb275f33","asset_id":"00000000-0000-0000-0000-000000000001","path":"source.txt","start_byte":0,"end_byte":8,"source_sha256":"cb0208b0b1fa06bc59f85c8b2be1e45ff2ef6ddbf0cef02e9f276b8208ea48ab","byte_length":8,"published_revision":2,"text":"new text","verified":true}
+(2 rows)
+
+2026-10-08 03:23:30.232 UTC [6629] LOG:  checkpoint starting: immediate force wait
+2026-10-08 03:23:30.235 UTC [6629] LOG:  checkpoint complete: wrote 1280 buffers (7.8%), wrote 3 SLRU buffers; 0 WAL file(s) added, 0 removed, 1 recycled; write=0.004 s, sync=0.001 s, total=0.004 s; sync files=488, longest=0.001 s, average=0.000 s; distance=12791 kB, estimate=12791 kB; lsn=0/23DF400, redo lsn=0/23DF3A8
+.2026-10-08 03:23:30.494 UTC [6629] LOG:  checkpoint starting: immediate force wait
+2026-10-08 03:23:30.494 UTC [6629] LOG:  checkpoint complete: wrote 3 buffers (0.0%), wrote 1 SLRU buffers; 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.001 s; sync files=4, longest=0.001 s, average=0.000 s; distance=5329 kB, estimate=12045 kB; lsn=0/2913A28, redo lsn=0/29139D0
+.2026-10-08 03:23:30.636 UTC [6825] ERROR:  could not serialize access due to concurrent update
+2026-10-08 03:23:30.636 UTC [6825] CONTEXT:  SQL statement "INSERT INTO "docs"."assets" (asset_id) VALUES ($1::pg_catalog.uuid) ON CONFLICT (asset_id) DO NOTHING RETURNING pg_catalog.to_json(true)"
+2026-10-08 03:23:30.636 UTC [6825] STATEMENT:  SELECT evidence.stage_version('docs', '{"asset_id": "c5a08b8d-3c65-4ba8-91bf-9834c43e91dd", "path": "n.md", "source": "new asset text", "source_sha256": "d2dd5349be93f949781038da94178c1d0f7ab0dfeb56bf71889fe657b0a60a94", "spans": [{"start_byte": 0, "end_byte": 3}], "ingestion_key": "same-key", "expected_revision": 0}'::jsonb);
+2026-10-08 03:23:30.647 UTC [6629] LOG:  checkpoint starting: immediate force wait
+2026-10-08 03:23:30.647 UTC [6629] LOG:  checkpoint complete: wrote 3 buffers (0.0%), wrote 1 SLRU buffers; 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.001 s; sync files=4, longest=0.001 s, average=0.000 s; distance=4629 kB, estimate=11303 kB; lsn=0/2D99008, redo lsn=0/2D98FB0
+.2026-10-08 03:23:30.814 UTC [6629] LOG:  checkpoint starting: immediate force wait
+2026-10-08 03:23:30.815 UTC [6629] LOG:  checkpoint complete: wrote 3 buffers (0.0%), wrote 1 SLRU buffers; 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.001 s; sync files=4, longest=0.001 s, average=0.000 s; distance=4629 kB, estimate=10636 kB; lsn=0/321E690, redo lsn=0/321E638
+.2026-10-08 03:23:30.926 UTC [6629] LOG:  checkpoint starting: immediate force wait
+2026-10-08 03:23:30.926 UTC [6629] LOG:  checkpoint complete: wrote 3 buffers (0.0%), wrote 1 SLRU buffers; 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.001 s; sync files=4, longest=0.001 s, average=0.000 s; distance=4636 kB, estimate=10036 kB; lsn=0/36A5A78, redo lsn=0/36A5A20
+.2026-10-08 03:23:30.990 UTC [6629] LOG:  checkpoint starting: immediate force wait
+2026-10-08 03:23:30.990 UTC [6629] LOG:  checkpoint complete: wrote 3 buffers (0.0%), wrote 1 SLRU buffers; 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.001 s; sync files=4, longest=0.001 s, average=0.000 s; distance=4743 kB, estimate=9507 kB; lsn=0/3B476D8, redo lsn=0/3B47680
+.2026-10-08 03:23:31.133 UTC [6629] LOG:  checkpoint starting: immediate force wait
+2026-10-08 03:23:31.133 UTC [6629] LOG:  checkpoint complete: wrote 3 buffers (0.0%), wrote 1 SLRU buffers; 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.001 s; sync files=4, longest=0.001 s, average=0.000 s; distance=4634 kB, estimate=9019 kB; lsn=0/3FCDF38, redo lsn=0/3FCDEE0
+.2026-10-08 03:23:31.499 UTC [6964] ERROR:  canceling statement due to statement timeout
+2026-10-08 03:23:31.499 UTC [6964] CONTEXT:  SQL statement "WITH n0 AS MATERIALIZED (SELECT q.evidence_id, q.score, 'regex'::pg_catalog.text AS mode, pg_catalog.row_number() OVER (ORDER BY q.path, q.start_byte, q.evidence_id) AS rn FROM (SELECT s.evidence_id, NULL::pg_catalog.float8 AS score, v.path, s.start_byte FROM "docs"."spans" s JOIN "docs"."assets" a ON a.current_version_id OPERATOR(pg_catalog.=) s.version_id JOIN "docs"."versions" v ON v.version_id OPERATOR(pg_catalog.=) s.version_id WHERE s.text OPERATOR(pg_catalog.~) $1 ORDER BY v.path, s.start_byte, s.evidence_id LIMIT 11) q) SELECT (SELECT pg_catalog.json_agg(pg_catalog.json_build_array(o.evidence_id, s.version_id, v.asset_id, v.path, s.start_byte, s.end_byte, pg_catalog.left(s.text, 512), o.mode, CASE WHEN t.version_id IS NOT NULL THEN 'purged' WHEN a.current_version_id OPERATOR(pg_catalog.=) v.version_id THEN 'current' WHEN p.version_id IS NULL THEN 'staged' WHEN a.current_version_id IS NULL AND a.retired_at IS NOT NULL THEN 'retired' ELSE 'historical' END, o.score) ORDER BY o.rn) FROM n0 o JOIN "docs"."spans" s ON s.evidence_id OPERATOR(pg_catalog.=) o.evidence_id JOIN "docs"."versions" v ON v.version_id OPERATOR(pg_catalog.=) s.version_id LEFT JOIN "docs"."assets" a ON a.asset_id OPERATOR(pg_catalog.=) v.asset_id LEFT JOIN "docs"."publications" p ON p.version_id OPERATOR(pg_catalog.=) v.version_id LEFT JOIN "docs"."tombstones" t ON t.version_id OPERATOR(pg_catalog.=) v.version_id WHERE o.rn OPERATOR(pg_catalog.<=) 10) AS results, NULL::pg_catalog.json AS edges, (SELECT pg_catalog.json_agg(pg_catalog.json_build_array(z.i, z.n, z.e) ORDER BY z.i) FROM (SELECT 0 AS i, (SELECT pg_catalog.count(*) FROM n0) AS n, 0::pg_catalog.int8 AS e) z) AS stats"
+2026-10-08 03:23:31.499 UTC [6964] STATEMENT:  SELECT evidence.query('docs', '{"nodes": [{"id": "a", "op": "regex", "pattern": "(0|1|2|3|4|5|6|7|8|9)+9$"}], "output": "a"}'::jsonb);
+2026-10-08 03:23:31.505 UTC [6629] LOG:  checkpoint starting: immediate force wait
+2026-10-08 03:23:31.505 UTC [6629] LOG:  checkpoint complete: wrote 3 buffers (0.0%), wrote 1 SLRU buffers; 0 WAL file(s) added, 0 removed, 2 recycled; write=0.001 s, sync=0.001 s, total=0.001 s; sync files=4, longest=0.001 s, average=0.000 s; distance=23820 kB, estimate=23820 kB; lsn=0/5711080, redo lsn=0/5711028
+.2026-10-08 03:23:31.682 UTC [6629] LOG:  checkpoint starting: immediate force wait
+2026-10-08 03:23:31.682 UTC [6629] LOG:  checkpoint complete: wrote 3 buffers (0.0%), wrote 1 SLRU buffers; 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.001 s; sync files=4, longest=0.001 s, average=0.000 s; distance=4634 kB, estimate=21901 kB; lsn=0/5B97958, redo lsn=0/5B97900
+.2026-10-08 03:23:31.857 UTC [7027] ERROR:  the asset's content_revision is 2, not 1
+2026-10-08 03:23:31.857 UTC [7027] DETAIL:  {"base_revision":1,"current_revision":2,"expected_revision":1,"reason":"revision_conflict","version_id":"ae423dfe-b078-4446-82a1-d1ab82e416cc"}
+2026-10-08 03:23:31.857 UTC [7027] STATEMENT:  SELECT evidence.publish_version('docs', '{"version_id": "ae423dfe-b078-4446-82a1-d1ab82e416cc"}'::jsonb);
+2026-10-08 03:23:31.864 UTC [6629] LOG:  checkpoint starting: immediate force wait
+2026-10-08 03:23:31.864 UTC [6629] LOG:  checkpoint complete: wrote 3 buffers (0.0%), wrote 1 SLRU buffers; 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.001 s; sync files=4, longest=0.001 s, average=0.000 s; distance=4634 kB, estimate=20175 kB; lsn=0/601E4F8, redo lsn=0/601E4A0
+.2026-10-08 03:23:31.917 UTC [6629] LOG:  checkpoint starting: immediate force wait
+2026-10-08 03:23:31.917 UTC [6629] LOG:  checkpoint complete: wrote 3 buffers (0.0%), wrote 1 SLRU buffers; 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.001 s; sync files=4, longest=0.001 s, average=0.000 s; distance=4631 kB, estimate=18620 kB; lsn=0/64A41E8, redo lsn=0/64A4190
+.2026-10-08 03:23:32.095 UTC [6629] LOG:  checkpoint starting: immediate force wait
+2026-10-08 03:23:32.096 UTC [6629] LOG:  checkpoint complete: wrote 3 buffers (0.0%), wrote 1 SLRU buffers; 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.001 s; sync files=4, longest=0.001 s, average=0.000 s; distance=4641 kB, estimate=17222 kB; lsn=0/692C700, redo lsn=0/692C6A8
+.2026-10-08 03:23:32.124 UTC [6629] LOG:  checkpoint starting: immediate force wait
+2026-10-08 03:23:32.124 UTC [6629] LOG:  checkpoint complete: wrote 3 buffers (0.0%), wrote 1 SLRU buffers; 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.001 s; sync files=4, longest=0.001 s, average=0.000 s; distance=4636 kB, estimate=15964 kB; lsn=0/6DB3758, redo lsn=0/6DB3700
+.2026-10-08 03:23:32.148 UTC [7115] ERROR:  pg_evidence requires a UTF8 database; this one is SQL_ASCII
+2026-10-08 03:23:32.148 UTC [7115] DETAIL:  {"reason":"non_utf8_database"}
+2026-10-08 03:23:32.148 UTC [7115] STATEMENT:  SELECT evidence.init_collection('docs', '{}'::jsonb);
+2026-10-08 03:23:32.165 UTC [7121] ERROR:  pg_evidence requires a UTF8 database; this one is LATIN1
+2026-10-08 03:23:32.165 UTC [7121] DETAIL:  {"reason":"non_utf8_database"}
+2026-10-08 03:23:32.165 UTC [7121] STATEMENT:  SELECT evidence.init_collection('docs', '{"unknown": "caf\xe9"}'::jsonb);
+2026-10-08 03:23:32.167 UTC [6629] LOG:  checkpoint starting: immediate force wait
+2026-10-08 03:23:32.173 UTC [6629] LOG:  checkpoint complete: wrote 1884 buffers (11.5%), wrote 1 SLRU buffers; 0 WAL file(s) added, 0 removed, 1 recycled; write=0.005 s, sync=0.001 s, total=0.006 s; sync files=600, longest=0.001 s, average=0.000 s; distance=13087 kB, estimate=15676 kB; lsn=0/7A7B738, redo lsn=0/7A7B6E0
+2026-10-08 03:23:32.176 UTC [6629] LOG:  checkpoint starting: immediate force wait
+2026-10-08 03:23:32.177 UTC [6629] LOG:  checkpoint complete: wrote 1 buffers (0.0%), wrote 1 SLRU buffers; 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.001 s; sync files=2, longest=0.001 s, average=0.000 s; distance=3 kB, estimate=14109 kB; lsn=0/7A7C550, redo lsn=0/7A7C4F8
+2026-10-08 03:23:32.180 UTC [6629] LOG:  checkpoint starting: immediate force wait
+2026-10-08 03:23:32.180 UTC [6629] LOG:  checkpoint complete: wrote 1 buffers (0.0%), wrote 1 SLRU buffers; 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.001 s; sync files=2, longest=0.000 s, average=0.000 s; distance=3 kB, estimate=12698 kB; lsn=0/7A7D3F8, redo lsn=0/7A7D3A0
+.2026-10-08 03:23:32.214 UTC [7141] ERROR:  span text does not match its source slice
+2026-10-08 03:23:32.214 UTC [7141] DETAIL:  {"evidence_id":"ea7a029a-2e71-4919-ad32-7919db2a316e","reason":"span_mismatch"}
+2026-10-08 03:23:32.214 UTC [7141] STATEMENT:  SELECT evidence.resolve('docs', 'ea7a029a-2e71-4919-ad32-7919db2a316e'::uuid);
+2026-10-08 03:23:32.217 UTC [7143] ERROR:  new row for relation "versions" violates check constraint "versions_source_digest"
+2026-10-08 03:23:32.217 UTC [7143] DETAIL:  Failing row contains (452130f0-3f0c-4c51-a7ea-4275c3dedd3c, f2abe2aa-b1f1-4ef9-9c70-07182d391189, a.md, trusted BYTES, \x6acd7c3c149b0fdbc542a20bb7ece8164ebf4b78148c3f65c2fddf208cc74e..., 13, k, \xedc86ef9115a4fc869b1402aa198f598b5df3ca8977b8f439ce67b2c62058f..., 0, builder, 2026-10-08 03:23:32.203599+00).
+2026-10-08 03:23:32.217 UTC [7143] STATEMENT:  UPDATE docs.versions SET source = 'trusted BYTES';
+2026-10-08 03:23:32.223 UTC [7147] ERROR:  retained source does not match its SHA-256 digest
+2026-10-08 03:23:32.223 UTC [7147] DETAIL:  {"reason":"digest_mismatch","version_id":"452130f0-3f0c-4c51-a7ea-4275c3dedd3c"}
+2026-10-08 03:23:32.223 UTC [7147] STATEMENT:  SELECT evidence.resolve('docs', '440b3690-1c7d-402d-a34b-2fcb2ab9f198'::uuid);
+2026-10-08 03:23:32.226 UTC [6629] LOG:  checkpoint starting: immediate force wait
+2026-10-08 03:23:32.226 UTC [6629] LOG:  checkpoint complete: wrote 3 buffers (0.0%), wrote 1 SLRU buffers; 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.001 s; sync files=4, longest=0.001 s, average=0.000 s; distance=4634 kB, estimate=11892 kB; lsn=0/7F03E80, redo lsn=0/7F03E28
+.2026-10-08 03:23:32.256 UTC [7161] ERROR:  ingestion_key was already used for a different request
+2026-10-08 03:23:32.256 UTC [7161] DETAIL:  {"reason":"ingestion_key_reused","version_id":"f49b5707-47dd-4510-89e9-5892e40b50ed"}
+2026-10-08 03:23:32.256 UTC [7161] STATEMENT:  SELECT evidence.stage_version('docs', '{"asset_id": "8bb2fa22-e51b-4c3f-b70c-addcecc4508c", "path": "notes/caf\u00e9.md", "source": "\ufeffCaf\u00e9 cafe\u0301\r\n\ud83d\ude00 \u00abedited\u00bb end\n", "source_sha256": "6eb0f2962080082b6183d00025841b0c330966d0b46da93c7064d7c359195c82", "spans": [], "ingestion_key": "k-a", "expected_revision": 0}'::jsonb);
+2026-10-08 03:23:32.273 UTC [7171] ERROR:  the asset's content_revision is 2, not 1
+2026-10-08 03:23:32.273 UTC [7171] DETAIL:  {"base_revision":1,"current_revision":2,"expected_revision":1,"reason":"revision_conflict","version_id":"5f44f68c-cda3-4b53-b4fe-d69bf073c6b1"}
+2026-10-08 03:23:32.273 UTC [7171] STATEMENT:  SELECT evidence.publish_version('docs', '{"version_id": "5f44f68c-cda3-4b53-b4fe-d69bf073c6b1"}'::jsonb);
+2026-10-08 03:23:32.289 UTC [6629] LOG:  checkpoint starting: immediate force wait
+2026-10-08 03:23:32.289 UTC [6629] LOG:  checkpoint complete: wrote 3 buffers (0.0%), wrote 1 SLRU buffers; 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.001 s; sync files=4, longest=0.001 s, average=0.000 s; distance=4636 kB, estimate=11166 kB; lsn=0/838B138, redo lsn=0/838B0E0
+.2026-10-08 03:23:32.335 UTC [6629] LOG:  checkpoint starting: immediate force wait
+2026-10-08 03:23:32.335 UTC [6629] LOG:  checkpoint complete: wrote 3 buffers (0.0%), wrote 1 SLRU buffers; 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.001 s; sync files=4, longest=0.001 s, average=0.000 s; distance=4644 kB, estimate=10514 kB; lsn=0/8814450, redo lsn=0/88143F8
+.2026-10-08 03:23:32.358 UTC [7209] ERROR:  invalid input syntax for type json at character 39
+2026-10-08 03:23:32.358 UTC [7209] DETAIL:  Token "bad" is invalid.
+2026-10-08 03:23:32.358 UTC [7209] CONTEXT:  JSON data, line 1: {bad
+2026-10-08 03:23:32.358 UTC [7209] STATEMENT:  SELECT evidence.stage_version('docs', '{bad'::jsonb);
+2026-10-08 03:23:32.360 UTC [7211] ERROR:  unsupported Unicode escape sequence at character 39
+2026-10-08 03:23:32.360 UTC [7211] DETAIL:  \u0000 cannot be converted to text.
+2026-10-08 03:23:32.360 UTC [7211] CONTEXT:  JSON data, line 1: {"s": "\u0000...
+2026-10-08 03:23:32.360 UTC [7211] STATEMENT:  SELECT evidence.stage_version('docs', '{"s": "\u0000"}'::jsonb);
+2026-10-08 03:23:32.363 UTC [7213] ERROR:  request cannot be represented: recursion limit exceeded at line 1 column 133
+2026-10-08 03:23:32.363 UTC [7213] DETAIL:  {"field":"request","reason":"invalid_request"}
+2026-10-08 03:23:32.363 UTC [7213] STATEMENT:  SELECT evidence.stage_version('docs', '{"x": [[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]}'::jsonb);
+2026-10-08 03:23:32.366 UTC [6629] LOG:  checkpoint starting: immediate force wait
+2026-10-08 03:23:32.366 UTC [6629] LOG:  checkpoint complete: wrote 3 buffers (0.0%), wrote 1 SLRU buffers; 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.001 s; sync files=4, longest=0.001 s, average=0.000 s; distance=4630 kB, estimate=9926 kB; lsn=0/8C99D40, redo lsn=0/8C99CE8
+.2026-10-08 03:23:32.389 UTC [7223] ERROR:  content_revision of a new asset is 0, not 3
+2026-10-08 03:23:32.389 UTC [7223] DETAIL:  {"current_revision":0,"expected_revision":3,"reason":"revision_conflict"}
+2026-10-08 03:23:32.389 UTC [7223] STATEMENT:  SELECT evidence.stage_version('docs', '{"asset_id": "2c770114-2b51-4aab-b245-3608d0e4c5b6", "path": "a.md", "source": "x", "source_sha256": "2d711642b726b04401627ca9fbac32f5c8530fb1903cc4db02258717921a4881", "spans": [], "ingestion_key": "k", "expected_revision": 3}'::jsonb);
+2026-10-08 03:23:32.395 UTC [6629] LOG:  checkpoint starting: immediate force wait
+2026-10-08 03:23:32.395 UTC [6629] LOG:  checkpoint complete: wrote 3 buffers (0.0%), wrote 1 SLRU buffers; 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.001 s; sync files=4, longest=0.000 s, average=0.000 s; distance=4631 kB, estimate=9396 kB; lsn=0/911FA98, redo lsn=0/911FA40
+.2026-10-08 03:23:32.425 UTC [7239] ERROR:  version 9478c65a-d914-443b-bc35-a585c089c064 is current; publish another version or retire the asset first
+2026-10-08 03:23:32.425 UTC [7239] DETAIL:  {"reason":"version_current"}
+2026-10-08 03:23:32.425 UTC [7239] STATEMENT:  SELECT evidence.purge('docs', '{"version_id": "9478c65a-d914-443b-bc35-a585c089c064", "reason": "x"}'::jsonb);
+2026-10-08 03:23:32.449 UTC [6629] LOG:  checkpoint starting: immediate force wait
+2026-10-08 03:23:32.449 UTC [6629] LOG:  checkpoint complete: wrote 3 buffers (0.0%), wrote 1 SLRU buffers; 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.001 s; sync files=4, longest=0.001 s, average=0.000 s; distance=4637 kB, estimate=8920 kB; lsn=0/95A70A0, redo lsn=0/95A7048
+.2026-10-08 03:23:32.517 UTC [7283] ERROR:  the response envelope needs 413 bytes; max_response_bytes is 100
+2026-10-08 03:23:32.517 UTC [7283] DETAIL:  {"max":100,"reason":"response_envelope_too_large"}
+2026-10-08 03:23:32.517 UTC [7283] STATEMENT:  SELECT evidence.query('docs', '{"nodes": [{"id": "a", "op": "literal", "text": "needle", "limit": 20}], "output": "a", "max_response_bytes": 100}'::jsonb);
+2026-10-08 03:23:32.519 UTC [7285] ERROR:  evidence.query requires a positive statement_timeout; it is the only bound on database work
+2026-10-08 03:23:32.519 UTC [7285] DETAIL:  {"reason":"statement_timeout_unset"}
+2026-10-08 03:23:32.519 UTC [7285] STATEMENT:  SELECT evidence.query('docs', '{"nodes": [{"id": "a", "op": "literal", "text": "needle", "limit": 20}], "output": "a"}'::jsonb);
+2026-10-08 03:23:32.522 UTC [6629] LOG:  checkpoint starting: immediate force wait
+2026-10-08 03:23:32.522 UTC [6629] LOG:  checkpoint complete: wrote 3 buffers (0.0%), wrote 1 SLRU buffers; 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.001 s; sync files=4, longest=0.001 s, average=0.000 s; distance=4643 kB, estimate=8492 kB; lsn=0/9A2FF58, redo lsn=0/9A2FF00
+.2026-10-08 03:23:32.566 UTC [7307] ERROR:  permission denied for table versions
+2026-10-08 03:23:32.566 UTC [7307] STATEMENT:  UPDATE docs.versions SET source = 'x';
+2026-10-08 03:23:32.569 UTC [7309] ERROR:  permission denied for table versions
+2026-10-08 03:23:32.569 UTC [7309] STATEMENT:  UPDATE docs.versions SET path = 'x';
+2026-10-08 03:23:32.571 UTC [7311] ERROR:  permission denied for table versions
+2026-10-08 03:23:32.571 UTC [7311] STATEMENT:  DELETE FROM docs.versions;
+2026-10-08 03:23:32.574 UTC [7313] ERROR:  permission denied for table spans
+2026-10-08 03:23:32.574 UTC [7313] STATEMENT:  UPDATE docs.spans SET text = 'x';
+2026-10-08 03:23:32.576 UTC [7315] ERROR:  permission denied for table spans
+2026-10-08 03:23:32.576 UTC [7315] STATEMENT:  DELETE FROM docs.spans;
+2026-10-08 03:23:32.579 UTC [7317] ERROR:  permission denied for table publications
+2026-10-08 03:23:32.579 UTC [7317] STATEMENT:  UPDATE docs.publications SET revision = 9;
+2026-10-08 03:23:32.581 UTC [7319] ERROR:  permission denied for table publications
+2026-10-08 03:23:32.581 UTC [7319] STATEMENT:  DELETE FROM docs.publications;
+2026-10-08 03:23:32.584 UTC [7321] ERROR:  permission denied for table spans
+2026-10-08 03:23:32.584 UTC [7321] STATEMENT:  TRUNCATE docs.spans;
+2026-10-08 03:23:32.586 UTC [7323] ERROR:  permission denied for table collection_config
+2026-10-08 03:23:32.586 UTC [7323] STATEMENT:  UPDATE docs.collection_config SET max_source_bytes = 1;
+2026-10-08 03:23:32.592 UTC [7327] ERROR:  purge requires UPDATE (source) on "docs"."versions"
+2026-10-08 03:23:32.592 UTC [7327] DETAIL:  {"reason":"purger_required"}
+2026-10-08 03:23:32.592 UTC [7327] STATEMENT:  SELECT evidence.purge('docs', '{"version_id": "e64d8f8f-6ae7-4f3f-a8a9-e1eaa359f115", "reason": "x"}'::jsonb);
+2026-10-08 03:23:32.602 UTC [7333] ERROR:  permission denied for table assets
+2026-10-08 03:23:32.602 UTC [7333] CONTEXT:  SQL statement "INSERT INTO "docs"."assets" (asset_id) VALUES ($1::pg_catalog.uuid) ON CONFLICT (asset_id) DO NOTHING RETURNING pg_catalog.to_json(true)"
+2026-10-08 03:23:32.602 UTC [7333] STATEMENT:  SELECT evidence.stage_version('docs', '{"asset_id": "f72ceccc-7843-4451-972d-dc910c27631d", "path": "z.md", "source": "z", "source_sha256": "594e519ae499312b29433b7dd8a97ff068defcba9755b6d5d00e84c524d67b06", "spans": [], "ingestion_key": "k3", "expected_revision": 0}'::jsonb);
+2026-10-08 03:23:32.610 UTC [6629] LOG:  checkpoint starting: immediate force wait
+2026-10-08 03:23:32.611 UTC [6629] LOG:  checkpoint complete: wrote 14 buffers (0.1%), wrote 1 SLRU buffers; 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.001 s; sync files=15, longest=0.001 s, average=0.000 s; distance=4671 kB, estimate=8110 kB; lsn=0/9EBFE20, redo lsn=0/9EBFDC8
+.2026-10-08 03:23:32.690 UTC [7377] ERROR:  function evidence.resolve(unknown, uuid) does not exist at character 8
+2026-10-08 03:23:32.690 UTC [7377] HINT:  No function matches the given name and argument types. You might need to add explicit type casts.
+2026-10-08 03:23:32.690 UTC [7377] STATEMENT:  SELECT evidence.resolve('docs', gen_random_uuid());
+2026-10-08 03:23:32.734 UTC [6629] LOG:  checkpoint starting: immediate force wait
+2026-10-08 03:23:32.734 UTC [6629] LOG:  checkpoint complete: wrote 14 buffers (0.1%), wrote 1 SLRU buffers; 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.001 s; sync files=15, longest=0.001 s, average=0.000 s; distance=5139 kB, estimate=7813 kB; lsn=0/A3C4A58, redo lsn=0/A3C4A00
+.2026-10-08 03:23:32.883 UTC [6629] LOG:  checkpoint starting: immediate force wait
+2026-10-08 03:23:32.886 UTC [6629] LOG:  checkpoint complete: wrote 1052 buffers (6.4%), wrote 1 SLRU buffers; 0 WAL file(s) added, 0 removed, 0 recycled; write=0.003 s, sync=0.001 s, total=0.003 s; sync files=358, longest=0.001 s, average=0.000 s; distance=10187 kB, estimate=10187 kB; lsn=0/ADB7930, redo lsn=0/ADB78D8
+2026-10-08 03:23:32.895 UTC [6629] LOG:  checkpoint starting: immediate force wait
+2026-10-08 03:23:32.895 UTC [6629] LOG:  checkpoint complete: wrote 7 buffers (0.0%), wrote 1 SLRU buffers; 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.001 s; sync files=7, longest=0.001 s, average=0.000 s; distance=151 kB, estimate=9184 kB; lsn=0/ADDD668, redo lsn=0/ADDD610
+.
+----------------------------------------------------------------------
+Ran 24 tests in 2.763s
+
+OK
+
+G6 observed at REPEATABLE READ: 40001 serialization failure
+SET
+ init_collection
+-----------------
+
+(1 row)
+
+DO
+ANALYZE
+ANALYZE
+ANALYZE
+{
+  "baseline": {
+    "samples": 5,
+    "median_client_ms": 5.3612919999750375,
+    "min_client_ms": 5.28270799998154,
+    "max_client_ms": 5.4471669999998085
+  },
+  "candidate": {
+    "samples": 5,
+    "median_client_ms": 4.595332999997481,
+    "min_client_ms": 4.561000000023796,
+    "max_client_ms": 5.344249999978956
+  }
+}
+PG_EVIDENCE_SYSTEM_OK
+waiting for server to shut down...2026-10-08 03:23:33.315 UTC [6625] LOG:  received fast shutdown request
+.2026-10-08 03:23:33.315 UTC [6625] LOG:  aborting any active transactions
+2026-10-08 03:23:33.316 UTC [6625] LOG:  background worker "logical replication launcher" (PID 6634) exited with exit code 1
+2026-10-08 03:23:33.316 UTC [6629] LOG:  shutting down
+2026-10-08 03:23:33.316 UTC [6629] LOG:  checkpoint starting: shutdown immediate
+2026-10-08 03:23:33.317 UTC [6629] LOG:  checkpoint complete: wrote 305 buffers (1.9%), wrote 1 SLRU buffers; 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.001 s; sync files=90, longest=0.001 s, average=0.000 s; distance=3211 kB, estimate=8586 kB; lsn=0/B1003A0, redo lsn=0/B1003A0
+2026-10-08 03:23:33.324 UTC [6625] LOG:  database system is shut down
+ done
+server stopped

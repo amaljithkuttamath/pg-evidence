@@ -123,3 +123,43 @@ validator refuses a `final` protocol without them and accepts no `pre_pilot`
 protocol that contains them.
 
 The public snapshot updates source-document paths only; benchmark rules are unchanged.
+
+## Development SQL comparison runner
+
+`python3 -m bench.compare_sql` performs a small, paired comparison before the
+full performance harness is available. Each SQL file must return one JSON value.
+Use a quiescent fixture database and the same roles, indexes and output semantics.
+Connection settings come from standard `PGHOST`, `PGPORT`, `PGUSER`, `PGDATABASE`
+and libpq authentication settings.
+
+```sh
+python3 -m bench.compare_sql --baseline baseline.sql --candidate candidate.sql \
+  --repetitions 5 --timeout-ms 10000 --output bench/results/smoke-001
+```
+
+The runner shuffles arm order with seed 101, enforces read-only transactions and
+statement timeouts, checks canonical JSON equality for every pair, and writes each
+observation immediately. Failed queries and result mismatches stop the comparison
+with a nonzero exit and remain in the raw log. Output directories must be new.
+
+The reported client times include a new `psql` process and database connection for
+each sample. There is no warmup, controlled cache reset, concurrency load, memory
+measurement or statistical claim in this smoke runner. It does not satisfy the
+frozen pilot or final protocol and cannot establish an extension speedup, ANN
+quality or token savings. Query hashes and raw observations make the small check
+inspectable; a release measurement still needs the full environment and dataset
+manifest required above.
+
+The Docker product check also runs `bench/sql/smoke_fixture.sql` (1,000 synthetic
+ASCII sources) and compares `smoke_sql.sql` with `smoke_extension.sql`. It checks
+identical literal result projections over the same tables. The extension arm also
+pays for its API validation and envelope rendering before projecting the results;
+the SQL arm returns only the result projection. This is a sanity check, not the
+fully matched response-encoding baseline required for release. No semantic or
+agent-quality conclusion follows from this synthetic fixture.
+
+The broader `baseline/wrapper.sql` control has known serialization and
+envelope-budget differences listed in [its README](../baseline/README.md).
+Resolve those differences before claiming matched-budget latency improvements.
+Vector compression candidates and the measurements they require are tracked in
+[the compression experiment](vector-compression.md); TurboQuant is not enabled.
