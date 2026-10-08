@@ -2,7 +2,7 @@
 
 **Versioned evidence and bounded retrieval for PostgreSQL.**
 
-[![Build](https://github.com/amaljithkuttamath/pg-evidence/actions/workflows/ci.yml/badge.svg)](https://github.com/amaljithkuttamath/pg-evidence/actions/workflows/ci.yml)
+Native x86-64 CI is pending activation. [Development evidence](docs/build-environment.md).
 
 An experimental Rust extension for agents that need to retrieve evidence, follow
 explicit relationships and return citations that remain meaningful after a source

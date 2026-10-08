@@ -6,8 +6,9 @@ produced matching library, SQL and control-file checksums. Both used the same
 cached environment layers; cross-host bit-for-bit reproducibility is not claimed.
 Exact observed versions and checksums are in [versions.json](../packaging/versions.json).
 
-GitHub CI runs the same probe on native x86-64 Linux. Check the actual workflow
-result before claiming that target is verified. This proves the development
+The GitHub CI workflow is prepared to run the same probe on native x86-64 Linux,
+but activation is pending. Check the actual workflow result before claiming that
+target is verified. This proves the development
 stack, not product behavior or benchmark performance.
 
 ## Run
