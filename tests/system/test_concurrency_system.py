@@ -39,6 +39,72 @@ class Session:
 
 
 class ConcurrencyTest(SystemTestCase):
+    def lifecycle_race(self, writer_op, waiter_op):
+        self.db.run('CREATE EXTENSION vector;')
+        isolations = [('READ COMMITTED', 'READ COMMITTED'),
+                      ('READ COMMITTED', 'REPEATABLE READ'),
+                      ('READ COMMITTED', 'SERIALIZABLE'),
+                      ('SERIALIZABLE', 'SERIALIZABLE')]
+        for i, (writer_isolation, waiter_isolation) in enumerate(isolations):
+            with self.subTest(writer=writer_isolation, waiter=waiter_isolation):
+                corpus = f'race_{i}'
+                self.db.init(corpus, {'embedding_model': 'm', 'embedding_dimensions': 3})
+                staged = self.db.stage(corpus, new_id(), 'a.txt', 'hello', [(0, 5)], 'seed', 0)
+                version = staged['version_id']
+                payloads = {
+                    'attach_embeddings': {'version_id': version, 'model': 'm', 'embeddings': [
+                        {'evidence_id': staged['spans'][0]['evidence_id'], 'vector': [1, 0, 0]}]},
+                    'purge': {'version_id': version, 'reason': 'regression'},
+                    'publish_version': {'version_id': version},
+                }
+                if waiter_op == 'publish_version':
+                    self.db.api('attach_embeddings', corpus, payloads['attach_embeddings'])
+                holder = self.hold_lock()
+                writer = Session(self.db, 'pgev_race_writer',
+                                 f'BEGIN ISOLATION LEVEL {writer_isolation};\n' +
+                                 self.db.api_sql(writer_op, corpus, payloads[writer_op]) +
+                                 f'\nSELECT pg_advisory_lock({LOCK_KEY});\nCOMMIT;\n')
+                self.wait_blocked('pgev_race_writer', 'advisory')
+                waiter = Session(self.db, 'pgev_race_waiter',
+                                 f'BEGIN ISOLATION LEVEL {waiter_isolation};\n' +
+                                 self.db.api_sql(waiter_op, corpus, payloads[waiter_op]) + '\nCOMMIT;\n')
+                self.wait_blocked('pgev_race_waiter')
+                self.release(holder)
+                wr, _, we = writer.finish()
+                rc, _, err = waiter.finish()
+                self.assertEqual(wr, 0, we)
+                if waiter_isolation != 'READ COMMITTED':
+                    self.assertNotEqual(rc, 0, 'fixed-snapshot waiter incorrectly committed')
+                    self.assertEqual(parse_error(err).sqlstate, '40001', err)
+                    # A fresh transaction can retry safely after a serialization failure.
+                    if waiter_op == 'purge':
+                        self.db.api(waiter_op, corpus, payloads[waiter_op])
+                    else:
+                        retry = self.db.api_error(waiter_op, corpus, payloads[waiter_op])
+                        self.assertEqual((retry.sqlstate, retry.reason), ('55000', 'version_purged'))
+                elif waiter_op == 'purge':
+                    self.assertEqual(rc, 0, err)
+                else:
+                    self.assertNotEqual(rc, 0)
+                    error = parse_error(err)
+                    self.assertEqual((error.sqlstate, error.reason), ('55000', 'version_purged'))
+                self.assertEqual(self.db.scalar(
+                    f'SELECT count(*) FROM {corpus}.assets a JOIN {corpus}.tombstones t '
+                    'ON t.version_id = a.current_version_id;'), '0')
+                self.assertEqual(self.db.scalar(f'SELECT count(*) FROM {corpus}.embeddings;'), '0')
+                # Lock coordination must not increment either public revision counter.
+                self.assertEqual(self.db.scalar(
+                    f'SELECT content_revision::text || \'/\' || annotation_revision FROM {corpus}.assets;'), '0/0')
+
+    def test_purge_cannot_race_publish_across_isolation_levels(self):
+        self.lifecycle_race('purge', 'publish_version')
+
+    def test_purge_cannot_race_attach_across_isolation_levels(self):
+        self.lifecycle_race('purge', 'attach_embeddings')
+
+    def test_attach_cannot_escape_concurrent_purge(self):
+        self.lifecycle_race('attach_embeddings', 'purge')
+
     def wait_for(self, sql, what, timeout=30):
         deadline = time.monotonic() + timeout
         while time.monotonic() < deadline:

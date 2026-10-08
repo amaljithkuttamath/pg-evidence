@@ -156,7 +156,7 @@ Returns void. Locks the asset row, then in order: purged version `55000
 version_purged`; wrong model, dimension, non-finite (after float4 rounding) or
 zero-norm vector, repeated or foreign evidence ID `22023`; a vector differing from
 the stored float4 values `23505 embedding_conflict`; all already stored
-identically: success with no write (also after publication); published version
+identically: success with no embedding changes (also after publication); published version
 needing a new vector `55000 version_published`; otherwise insert the missing
 vectors. Only a collection with embedding configuration accepts this call
 (`22023 embeddings_not_configured`). Vectors are computed by the client; the
@@ -320,12 +320,12 @@ both source and digest is not detected.
 
 ## Verification
 
-Executed so far: host unit tests of the pure modules (request validation, plan
-compilation, rendering, DDL) and a type check of the whole crate against
-pgrx 0.19.3's bundled PostgreSQL 18 bindings. The in-crate `#[pg_test]` suite
-(`src/tests/`) and the external system tests (`tests/system/`) are written for
-real PostgreSQL 18 and must be run in the Docker build before any behavior here
-is claimed as verified. Gates G1, G4, G6, G7, G8 and G9 remain open until those
-results exist; G7 (current-only ANN recall under accumulated history) is not
-addressed by v0.1, whose semantic mode post-filters the HNSW index and reports
-`underfilled` and `approximate`.
+The native ARM Linux Docker build passed 62 Rust/backend tests, 30 system-suite
+tests and a fresh runtime installation check. See the
+[regression verification record](evidence/2026-10-08-fixes/README.md) for exact
+coverage, including forced purge/attach/publish races across isolation levels.
+These results cover the tested schedules, not every possible interleaving.
+Native x86-64, broad cancellation coverage, scale and live-agent evaluation
+remain open. Current-only ANN recall under accumulated history is not established;
+semantic mode post-filters the HNSW index and reports `underfilled` and
+`approximate`.
