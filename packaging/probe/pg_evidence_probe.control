@@ -1,0 +1,6 @@
+comment = 'pg-evidence build probe; not a product extension'
+default_version = '@CARGO_VERSION@'
+module_pathname = 'pg_evidence_probe'
+relocatable = false
+superuser = true
+trusted = false

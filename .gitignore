@@ -1,0 +1,15 @@
+.DS_Store
+.env
+.env.*
+!.env.example
+*.log
+__pycache__/
+*.py[cod]
+.venv/
+target/
+packaging/artifacts/
+bench/artifacts/
+bench/data/
+bench/results/
+.claude/settings.local.json
+CLAUDE.local.md

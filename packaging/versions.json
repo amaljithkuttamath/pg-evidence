@@ -1,0 +1,63 @@
+{
+  "observed_on": "2026-10-08T01:22Z",
+  "scope": "Successful observations only. Platform linux/arm64 (native, Docker Desktop on Apple silicon). Not evidence for the linux/amd64 release target; G1 for x86-64 remains open.",
+  "evidence": "docs/build-environment.md (probe attempts 4 and 5)",
+  "base_image": {
+    "reference": "pgvector/pgvector:0.8.7-pg18-trixie",
+    "index_digest": "sha256:9d9c930220cb9bf2f956d10a8f909cf9973d9672ca0278aef2c1e6facccad2e0",
+    "linux/arm64_manifest": "sha256:14d8a514128e8a98150fa391e522e05a8bf70e17bf1a69448fdb7a436c2187c6",
+    "os": "Debian GNU/Linux 13 (trixie)"
+  },
+  "postgresql": {
+    "server": "18.6 (Debian 18.6-1.pgdg13+2)",
+    "postgresql-18": "18.6-1.pgdg13+2",
+    "postgresql-server-dev-18": "18.6-1.pgdg13+2",
+    "postgresql-server-dev-18_arm64_deb_sha256": "bb88940b9d12e11e166e8f7dedd30859f3396d4027e00979e0a19dd41fff7f3a",
+    "database_encoding_tested": "UTF8"
+  },
+  "pgvector": {
+    "extversion": "0.8.7",
+    "source": "preinstalled in base image (not a Debian package)"
+  },
+  "rust": {
+    "rustup": "1.29.1",
+    "rustup_init_sha256": {
+      "aarch64-unknown-linux-gnu": "15f6e4ce9f583b929c996c91562bad6d4454f3281de858b02cdfdef615fac433"
+    },
+    "toolchain": "1.99.0",
+    "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)",
+    "cargo": "cargo 1.99.0 (5f94df478 2026-08-27)",
+    "rustc_llvm": "23.1.1",
+    "channel_manifest_sha256": "ce6dddc886364f8d786514771212cebe9b731ba82d6b859951c6b0ccc516b6a2",
+    "profile": "minimal"
+  },
+  "pgrx": {
+    "cargo-pgrx": "0.19.3",
+    "cargo-pgrx_crate_sha256": "63418c536503020a9e79c20fd8a33c1b84814fbcb262f684d1b11b9adc7e628a",
+    "cargo-pgrx_install": "cargo install --locked",
+    "pgrx": "0.19.3",
+    "pgrx_crate_sha256": "fa01ba6f6cb025576dc2bd70efae13c002d3b9cce5848b647e3158f33dbf32bb",
+    "pgrx-tests": "0.19.3",
+    "pgrx-tests_crate_sha256": "cdc85344f8a014cd33c952ebf1629fd04380844afc151812ee8a45214b2bb910",
+    "msrv": "1.96",
+    "probe_cargo_lock_sha256": "0e7dd0234afe5d0d72d4ff8749de3978bd6d6e19dce9f8fc6856ea2a65eaa8f6"
+  },
+  "debian_build_packages_observed": {
+    "clang-19": "1:19.1.7-3+b1",
+    "libclang1-19": "1:19.1.7-3+b1",
+    "llvm-19-dev": "1:19.1.7-3+b1",
+    "libicu-dev": "76.1-4",
+    "libssl-dev": "3.5.7-1~deb13u3",
+    "gcc": "4:14.2.0-1",
+    "libc6-dev": "2.41-12+deb13u4",
+    "make": "4.4.1-2",
+    "pkg-config": "1.8.1-4",
+    "note": "Only postgresql-server-dev-18 is version-pinned in Dockerfile.build; the others are recorded as observed from the Debian archive on this date"
+  },
+  "probe_release_artifacts_linux_arm64_sha256": {
+    "pg_evidence_probe.so": "1557a89069cd68aaf5040e4ac83bd8c87545d9001d18e91f47313c4f111f3aab",
+    "pg_evidence_probe--0.0.0.sql": "fa19a01992c66c13d64d1fe5483a023e5c0cdb47f9e17e731683f055c6520dff",
+    "pg_evidence_probe.control": "af4d182ad852ad57ab2f8224436790fc789a04d0b9cc49e59caa0726a747d820",
+    "note": "Identical in two independent tmpfs builds (attempts 4 and 5) from the same cached environment layers"
+  }
+}

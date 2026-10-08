@@ -1,0 +1,29 @@
+# Build-environment probe (Task 1, gates G1/G2). Not a pg-evidence product API.
+[package]
+name = "pg_evidence_probe"
+version = "0.0.0"
+edition = "2021"
+publish = false
+
+[lib]
+crate-type = ["cdylib", "lib"]
+
+[features]
+default = ["pg18"]
+pg18 = ["pgrx/pg18", "pgrx-tests/pg18"]
+pg_test = []
+
+[dependencies]
+pgrx = "=0.19.3"
+
+[dev-dependencies]
+pgrx-tests = "=0.19.3"
+
+[profile.dev]
+panic = "unwind"
+
+[profile.release]
+panic = "unwind"
+opt-level = 3
+lto = "fat"
+codegen-units = 1

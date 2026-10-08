@@ -1,0 +1,17 @@
+name: Bug report
+description: Report a reproducible failure
+body:
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: Commands, expected behavior and actual behavior. Omit credentials and private data.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Commit, PostgreSQL/pgrx versions, platform and relevant logs.
+    validations:
+      required: true

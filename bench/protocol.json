@@ -1,0 +1,175 @@
+{
+  "schema": "pg-evidence/benchmark-protocol",
+  "schema_version": 1,
+  "stage": "pre_pilot",
+  "sources": [
+    "docs/testing-benchmark-plan.md",
+    "docs/benchmark-method.md",
+    "docs/design.md"
+  ],
+  "comparators": [
+    "sql_direct",
+    "sql_composed",
+    "extension_direct",
+    "extension_composed",
+    "files_ripgrep",
+    "pgvector_exact",
+    "pgvector_hnsw"
+  ],
+  "comparator_definitions": {
+    "sql_direct": "S-D: thin external wrapper over matched PostgreSQL SQL, full-text search, pgvector and adjacency tables; one call per operation",
+    "sql_composed": "S-C: the same SQL wrapper executing composed plans",
+    "extension_direct": "E-D: pg-evidence, one call per operation",
+    "extension_composed": "E-C: pg-evidence composed plans",
+    "files_ripgrep": "Files + ripgrep + exact file reads over identical allowed source data",
+    "pgvector_exact": "pgvector exact scan; vector ground truth",
+    "pgvector_hnsw": "pgvector HNSW index baseline"
+  },
+  "external_comparators": {
+    "paradedb_pg_search": {
+      "optional": false,
+      "role": "first external ranked text comparison"
+    },
+    "pgvectorscale_diskann": {
+      "optional": false,
+      "role": "external vector-scale comparison"
+    },
+    "pg_textsearch": {
+      "optional": true,
+      "role": "optional second BM25 lexical comparator"
+    }
+  },
+  "external_comparator_rule": "Install a pinned compatible release or record unmeasured with its reason; never substitute vendor-published numbers. Alternative stacks use native indexes and documented tuning; version/citation tasks route them through the same counted SQL provenance adapter.",
+  "primary_contrasts": {
+    "composition_tokens": [
+      "extension_composed",
+      "extension_direct"
+    ],
+    "extension_overhead": [
+      "extension_composed",
+      "sql_composed"
+    ]
+  },
+  "replication_contrasts": {
+    "composition_replication": [
+      "sql_composed",
+      "sql_direct"
+    ]
+  },
+  "workflow_comparisons": {
+    "files_ripgrep": {
+      "attributes_savings_to_extension": false,
+      "note": "Workflow comparison only; cannot alone attribute savings to extension execution"
+    }
+  },
+  "secondary_contrasts": {
+    "interval": "two_sided_95",
+    "claims": false,
+    "note": "All other contrasts, including E-D versus S-D, are descriptive"
+  },
+  "estimands": {
+    "token_ratio": {
+      "contrast": "composition_tokens",
+      "definition": "Ratio of mean total model tokens per attempted question: average repetitions within each question, then weight each question equally",
+      "denominator": "attempted_questions",
+      "counted_tokens": "All model input and output tokens, including cached usage, schemas, generated code, failed calls, retries, expansion, verification and any summarization or extra model use"
+    },
+    "supported_answer_rate_difference": {
+      "contrast": "composition_tokens",
+      "definition": "Supported-answer rate of the first arm minus the second, per the frozen answer-support rubric, averaged as for token_ratio",
+      "denominator": "attempted_questions",
+      "failed_attempts": "counted_as_unsupported"
+    }
+  },
+  "decision_rule": {
+    "composition_claim": {
+      "contrast": "composition_tokens",
+      "all_of": [
+        {
+          "metric": "token_ratio",
+          "bound": "upper",
+          "sided": "one",
+          "confidence": 0.95,
+          "operator": "<=",
+          "threshold": 0.75
+        },
+        {
+          "metric": "supported_answer_rate_difference",
+          "bound": "lower",
+          "sided": "one",
+          "confidence": 0.95,
+          "operator": ">",
+          "threshold": -0.03
+        }
+      ],
+      "multiplicity": "Only this joint rule supports a claim; no adjustment is needed because one claim is tested. Any added claim requires a predeclared adjustment before the final run.",
+      "release_gate": "The live evaluation must be run, adjudicated and published whether or not the claim rule passes"
+    }
+  },
+  "claim_scope": {
+    "min_independent_source_groups_for_cross_corpus_claim": 20,
+    "below_minimum": "Claims are limited to the evaluated corpora",
+    "uncertainty": "Cluster uncertainty by source group according to the sampling design"
+  },
+  "question_splits": {
+    "splits": [
+      "development",
+      "pilot",
+      "final_holdout"
+    ],
+    "split_unit": "source_group",
+    "duplicate_detection": "Detect duplicate and near-duplicate sources across groups before freezing splits",
+    "pilot_questions_initial": 100,
+    "pilot_note": "The pilot size is a planning value; it does not justify the final holdout size"
+  },
+  "database_matrix": {
+    "scales_spans": [
+      100000,
+      1000000
+    ],
+    "clients": [
+      1,
+      8,
+      32
+    ],
+    "retained_versions": [
+      1,
+      5,
+      20
+    ],
+    "filter_eligible_fraction": [
+      1.0,
+      0.1,
+      0.01,
+      0.001
+    ],
+    "filter_correlation": [
+      "correlated",
+      "uncorrelated"
+    ],
+    "notes": "Freeze a representative core matrix plus separate history, selectivity, skew and memory-pressure sweeps; do not run the full Cartesian product. Narrowing scale or concurrency requires a documented concrete resource limitation."
+  },
+  "initial_database_schedule": {
+    "warmup_seconds": 30,
+    "measure_seconds": 120,
+    "runs": 5,
+    "note": "Pilot schedule; may change only before the final freeze"
+  },
+  "seeds": [
+    101,
+    202,
+    303,
+    404,
+    505
+  ],
+  "cache_policy": {
+    "headline": "warm_steady_state",
+    "cold_start_procedure": "Documented separately per run; a PostgreSQL restart alone does not clear the operating-system page cache, so state the actual cache-clearing procedure",
+    "comparator_order": "Alternate comparator order and start from equivalent dataset snapshots"
+  },
+  "timeout_accounting": {
+    "exclude_from_denominator": false,
+    "rule": "Timeouts, failures, late and skipped requests are reported and remain in denominators"
+  },
+  "post_pilot": null
+}
