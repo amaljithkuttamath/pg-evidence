@@ -30,6 +30,12 @@ model training workload is not a database benchmark.
 
 ## Current availability
 
+The [initial research screening](research/2026-10-07-initial-screening.md) records
+primary sources and the first four experiment questions. A coordinator schedule
+runs weekly on Monday at 09:00 America/New_York. It is a Codex chat automation;
+GitHub hosts proposals and, once activated, their CI evidence. Each experiment
+session is limited to three candidates and 45 minutes.
+
 The build and protocol checks are executable. The product, matched SQL baseline
 and performance harness are still planned. There is therefore no valid product
 optimization result yet. Research can inform those implementations immediately;
