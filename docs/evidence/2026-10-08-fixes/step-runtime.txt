@@ -1,0 +1,30 @@
+CREATE EXTENSION
+CREATE EXTENSION
+SET
+ init_collection
+-----------------
+
+(1 row)
+
+DO
+DO
+CREATE ROLE
+CREATE ROLE
+GRANT
+GRANT
+GRANT ROLE
+GRANT
+GRANT
+GRANT
+SET
+                                                                                                                                                                                            resolve
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ {"status":"historical","evidence_id":"55bd0b39-1cc7-4111-8d80-57efa3672175","version_id":"48229638-5385-4175-b860-986e74ca2092","asset_id":"00000000-0000-0000-0000-000000000001","path":"source.txt","start_byte":0,"end_byte":9,"source_sha256":"72133e6883039363ca4b2835b991529f4ff755cbd51c0de206a05f8f8548eeec","byte_length":9,"published_revision":1,"text":"old café","verified":true}
+ {"status":"current","evidence_id":"6c103485-b50e-432b-a89e-12c9ba4a1764","version_id":"1e17e00f-a92a-41b9-9c3d-b54e6b55a12c","asset_id":"00000000-0000-0000-0000-000000000001","path":"source.txt","start_byte":0,"end_byte":8,"source_sha256":"cb0208b0b1fa06bc59f85c8b2be1e45ff2ef6ddbf0cef02e9f276b8208ea48ab","byte_length":8,"published_revision":2,"text":"new text","verified":true}
+(2 rows)
+
+RESET
+SET
+DO
+RESET
+PG_EVIDENCE_RUNTIME_OK

@@ -1,0 +1,61 @@
+FF...FFFF.....
+======================================================================
+FAIL: test_attach_cannot_escape_concurrent_purge (test_concurrency_system.ConcurrencyTest.test_attach_cannot_escape_concurrent_purge) (writer='READ COMMITTED', waiter='REPEATABLE READ')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<checkout>/tests/system/test_concurrency_system.py", line 77, in lifecycle_race
+    self.assertNotEqual(rc, 0, 'fixed-snapshot waiter incorrectly committed')
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 == 0 : fixed-snapshot waiter incorrectly committed
+
+======================================================================
+FAIL: test_attach_cannot_escape_concurrent_purge (test_concurrency_system.ConcurrencyTest.test_attach_cannot_escape_concurrent_purge) (writer='READ COMMITTED', waiter='SERIALIZABLE')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<checkout>/tests/system/test_concurrency_system.py", line 77, in lifecycle_race
+    self.assertNotEqual(rc, 0, 'fixed-snapshot waiter incorrectly committed')
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 == 0 : fixed-snapshot waiter incorrectly committed
+
+======================================================================
+FAIL: test_purge_cannot_race_attach_across_isolation_levels (test_concurrency_system.ConcurrencyTest.test_purge_cannot_race_attach_across_isolation_levels) (writer='READ COMMITTED', waiter='REPEATABLE READ')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<checkout>/tests/system/test_concurrency_system.py", line 77, in lifecycle_race
+    self.assertNotEqual(rc, 0, 'fixed-snapshot waiter incorrectly committed')
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 == 0 : fixed-snapshot waiter incorrectly committed
+
+======================================================================
+FAIL: test_purge_cannot_race_attach_across_isolation_levels (test_concurrency_system.ConcurrencyTest.test_purge_cannot_race_attach_across_isolation_levels) (writer='READ COMMITTED', waiter='SERIALIZABLE')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<checkout>/tests/system/test_concurrency_system.py", line 77, in lifecycle_race
+    self.assertNotEqual(rc, 0, 'fixed-snapshot waiter incorrectly committed')
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 == 0 : fixed-snapshot waiter incorrectly committed
+
+======================================================================
+FAIL: test_purge_cannot_race_publish_across_isolation_levels (test_concurrency_system.ConcurrencyTest.test_purge_cannot_race_publish_across_isolation_levels) (writer='READ COMMITTED', waiter='REPEATABLE READ')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<checkout>/tests/system/test_concurrency_system.py", line 77, in lifecycle_race
+    self.assertNotEqual(rc, 0, 'fixed-snapshot waiter incorrectly committed')
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 == 0 : fixed-snapshot waiter incorrectly committed
+
+======================================================================
+FAIL: test_purge_cannot_race_publish_across_isolation_levels (test_concurrency_system.ConcurrencyTest.test_purge_cannot_race_publish_across_isolation_levels) (writer='READ COMMITTED', waiter='SERIALIZABLE')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<checkout>/tests/system/test_concurrency_system.py", line 77, in lifecycle_race
+    self.assertNotEqual(rc, 0, 'fixed-snapshot waiter incorrectly committed')
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 == 0 : fixed-snapshot waiter incorrectly committed
+
+----------------------------------------------------------------------
+Ran 11 tests in 12.585s
+
+FAILED (failures=6)
+
+G6 observed at REPEATABLE READ: 40001 serialization failure

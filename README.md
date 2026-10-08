@@ -7,7 +7,7 @@ and cite the exact text they used. Store a source once, retrieve small excerpts,
 and resolve a citation after the source changes.
 
 **0.1.0 development preview.** Verified on ARM Linux: 62 Rust/backend tests,
-24 system tests and a fresh Docker installation check pass. License selection
+30 system-suite tests and a fresh Docker installation check pass. License selection
 and native x86-64 CI activation are pending.
 No token-saving, speed or production-scale claim is made.
 
@@ -72,6 +72,8 @@ See [examples](examples/README.md) for ingestion and agent tools,
 
 ## Evidence before claims
 
+[Latest regression evidence](docs/evidence/2026-10-08-fixes/README.md) covers
+purge/publication isolation races and default importer chunking.
 [Build evidence](docs/build-environment.md) records the tested platform and
 commands. [Benchmarks](docs/benchmark-method.md) separate correctness, latency,
 recall, memory and agent token usage. The small SQL smoke comparison checks equal

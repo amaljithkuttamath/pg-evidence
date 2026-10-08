@@ -1,0 +1,19 @@
+{
+  "date_utc": "2026-10-08",
+  "platform": "linux/arm64",
+  "rust_backend_tests": 62,
+  "system_suite_tests": 30,
+  "system_database_tests": 28,
+  "importer_unit_tests": 2,
+  "forced_lifecycle_schedules": 12,
+  "runtime_marker": "PG_EVIDENCE_RUNTIME_OK",
+  "raw_log_sha256": {
+    "step-tests.txt": "81cf577f8b36f1c41cdad24299a8e451831bda15fc608d770d0d8087ac090edf",
+    "step-system.txt": "b4cae60939ba9e31633bfe4714b49d6fc25cf800252e93f4e2ed350c8bc00703",
+    "step-runtime.txt": "61dbc639290d7ee5ff6c5b3bfc96803e4fefd36073bf4e6d42f780a408a3446c",
+    "red-concurrency.txt": "2da4ec47895decb0c3aa36838ff3fa67ba89d2db4541f8dbb821545ddc8f8915",
+    "red-importer.txt": "f83274e6bd9c60dfca77b14ba9d4ed05fb03100a072fe0c292afc8092308f4d9"
+  },
+  "source_manifest_entries": 53,
+  "source_inputs_matched_checkout": true
+}

@@ -4,8 +4,9 @@
 
 Each file becomes an asset (UUIDv5 of corpus and relative path). Unchanged files
 are skipped; changed files are staged against the asset's current revision and
-published. Spans are line-aligned chunks of at most --max-span-bytes UTF-8
-bytes, cut on character boundaries. Binary (NUL-containing) and non-UTF-8 files
+published. Spans contain at most --max-span-bytes UTF-8 bytes, preferring a
+newline in the final 10% of each chunk and otherwise cutting on a character
+boundary. Binary (NUL-containing) and non-UTF-8 files
 are skipped and reported with their path and reason, as v0.1 stores text only.
 One JSON line is printed per file. Embeddings are not computed here.
 """
@@ -23,21 +24,22 @@ NAMESPACE = uuid.UUID('7f0f3c6e-2d4b-5a1e-9c3d-6b8a1e2f4c50')
 
 
 def chunk_spans(data, max_bytes):
-    """Line-aligned (start, end) byte spans of at most max_bytes each."""
-    spans, start, pos = [], 0, 0
-    for line in data.splitlines(keepends=True):
-        if pos + len(line) - start > max_bytes and pos > start:
-            spans.append((start, pos))
-            start = pos
-        pos += len(line)
-        while pos - start > max_bytes:  # one long line: cut on a UTF-8 boundary
-            cut = start + max_bytes
+    """Pack valid UTF-8 bytes densely, preserving nearby newline boundaries."""
+    if max_bytes < 4:
+        raise ValueError('max_bytes must be at least 4')
+    spans, start = [], 0
+    while start < len(data):
+        cut = min(start + max_bytes, len(data))
+        if cut < len(data):
             while data[cut] & 0xC0 == 0x80:
                 cut -= 1
-            spans.append((start, cut))
-            start = cut
-    if pos > start:
-        spans.append((start, pos))
+            # Whole-line packing can nearly double the span count and overflow
+            # stage_version's response budget. Only prefer a well-filled line end.
+            newline = data.rfind(b'\n', start + max_bytes * 9 // 10, cut)
+            if newline >= 0:
+                cut = newline + 1
+        spans.append((start, cut))
+        start = cut
     return spans
 
 
@@ -85,8 +87,8 @@ def main():
     ap.add_argument('--corpus', required=True)
     ap.add_argument('--root', required=True, type=Path)
     ap.add_argument('--init', action='store_true', help='create the corpus first')
-    # 2000-byte spans keep a 1 MiB file's stage response (~95 bytes per span) under
-    # the default 64 KiB max_response_bytes.
+    # Dense 2000-byte chunks keep default-size files within the default staging
+    # response budget. Smaller custom chunks may need a larger collection budget.
     ap.add_argument('--max-span-bytes', type=int, default=2000)
     ap.add_argument('--max-source-bytes', type=int, default=1 << 20)
     args = ap.parse_args()

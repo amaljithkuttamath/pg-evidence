@@ -8,8 +8,46 @@ from pathlib import Path
 
 from pgev import REPO, SystemTestCase, env_for, psql_args, stage_request, new_id
 
+sys.path.insert(0, str(REPO / 'examples'))
+from import_files import chunk_spans
+
+
+class ChunkSpansTest(unittest.TestCase):
+    def test_preserves_utf8_bytes_and_respects_limits(self):
+        for source in ['', 'a' * 10007, 'é😀漢\n' * 1000, '\r\n' * 2000]:
+            raw = source.encode('utf-8')
+            for limit in (4, 7, 2000):
+                with self.subTest(limit=limit, bytes=len(raw)):
+                    spans = chunk_spans(raw, limit)
+                    parts = [raw[start:end] for start, end in spans]
+                    self.assertEqual(b''.join(parts), raw)
+                    self.assertTrue(all(0 < len(part) <= limit for part in parts))
+                    for part in parts:
+                        part.decode('utf-8')
+
+    def test_prefers_nearby_newline_without_wasting_half_a_chunk(self):
+        data = (b'x' * 1000 + b'\n') * 1047
+        spans = chunk_spans(data, 2000)
+        self.assertTrue(all(end - start >= 1800 for start, end in spans[:-1]))
+        self.assertEqual(chunk_spans(b'x' * 1899 + b'\n' + b'y' * 200, 2000),
+                         [(0, 1900), (1900, 2100)])
+
 
 class ExamplesTest(SystemTestCase):
+    def test_default_importer_accepts_near_limit_line_aligned_file(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            content = (b'x' * 1000 + b'\n') * 1047
+            (root / 'large.txt').write_bytes(content)
+            proc = self.run_example(str(REPO / 'examples' / 'import_files.py'),
+                                    '--corpus', 'docs', '--root', tmp, '--init')
+            self.assertEqual(proc.returncode, 0, proc.stderr + proc.stdout)
+            result = json.loads(proc.stdout)
+            self.assertEqual(result['revision'], 1)
+            self.assertEqual(self.db.scalar('SELECT octet_length(source) FROM docs.versions;'), str(len(content)))
+            self.assertEqual(self.db.scalar(
+                "SELECT string_agg(text, '' ORDER BY start_byte) = (SELECT source FROM docs.versions) FROM docs.spans;"), 't')
+
     def run_example(self, *args, env_extra=None):
         return subprocess.run([sys.executable, *args], capture_output=True, text=True,
                               env=env_for(self.dbname, **(env_extra or {})), timeout=300)

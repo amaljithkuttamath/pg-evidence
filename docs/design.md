@@ -169,6 +169,14 @@ Mutations are supported at `READ COMMITTED`. At `REPEATABLE READ` or
 retry; the exact behavior is **G6**. Each function call is atomic: an error leaves
 no writes from that call.
 
+Version attachment, publication and purge coordinate by updating the shared
+asset row, without changing its public revision counters for coordination.
+A row lock alone is insufficient: a fixed-snapshot waiter could otherwise miss
+a committed tombstone or embedding. A stale waiter receives `40001`; retry the
+whole transaction with a fresh snapshot. Even an identical retry can perform
+this coordination update, while retaining the same version, evidence and
+publication identities.
+
 - **`stage_version`** (`asset_id`, `path`, `source`, `source_sha256`, `spans`
   as `start_byte`/`end_byte` pairs, `ingestion_key`, `expected_revision`):
   1. Validate, then compute `request_sha256` over the canonical request.

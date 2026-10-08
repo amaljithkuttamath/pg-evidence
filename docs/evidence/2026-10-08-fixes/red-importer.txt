@@ -1,0 +1,15 @@
+F
+======================================================================
+FAIL: test_default_importer_accepts_near_limit_line_aligned_file (test_examples_system.ExamplesTest.test_default_importer_accepts_near_limit_line_aligned_file)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<checkout>/tests/system/test_examples_system.py", line 20, in test_default_importer_accepts_near_limit_line_aligned_file
+    self.assertEqual(proc.returncode, 0, proc.stderr + proc.stdout)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 0 : {"path": "large.txt", "error": "54000", "reason": "response_too_large"}
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.353s
+
+FAILED (failures=1)

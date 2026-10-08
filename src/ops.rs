@@ -54,12 +54,16 @@ fn revision_conflict(what: &str, current: i64, expected: i64) -> ApiError {
     .with("expected_revision", expected)
 }
 
-/// Locks the asset row of a version (`FOR UPDATE`) and returns its asset_id.
+/// Writes the shared asset row and returns its asset_id. A row lock alone does
+/// not invalidate a waiting REPEATABLE READ snapshot when purge or attachment
+/// changes only child rows. This self-assignment forces stale waiters to receive
+/// 40001 without changing either public revision counter.
 fn lock_asset_of_version(t: &Tables, version_id: Uuid16) -> ApiResult<String> {
     let v = write_json(
         &format!(
-            "SELECT pg_catalog.to_json(a.asset_id) FROM {assets} a WHERE a.asset_id {EQ} \
-             (SELECT v.asset_id FROM {versions} v WHERE v.version_id {EQ} $1::pg_catalog.uuid) FOR UPDATE OF a",
+            "UPDATE {assets} a SET annotation_revision = a.annotation_revision WHERE a.asset_id {EQ} \
+             (SELECT v.asset_id FROM {versions} v WHERE v.version_id {EQ} $1::pg_catalog.uuid) \
+             RETURNING pg_catalog.to_json(a.asset_id)",
             assets = t.assets,
             versions = t.versions
         ),
