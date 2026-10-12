@@ -44,3 +44,9 @@ none is enabled by default.
 The project's coordinator runs the reasoning and opens GitHub proposals; Actions
 provides reproducible checks. No model credential is stored in this repository and
 no paid model/API evaluation is enabled without a budget decision.
+
+## Research records
+
+- [2026-10-12: upstream fixes and experiment readiness](research/2026-10-12/README.md)
+  — pg_search permission/cancellation gates, PostgreSQL-V architecture evidence,
+  and the prerequisites still missing for vector optimization experiments.
