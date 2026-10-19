@@ -47,6 +47,8 @@ no paid model/API evaluation is enabled without a budget decision.
 
 ## Research records
 
+- [2026-10-19: cached filters, adaptive search and dataset readiness](research/2026-10-19/README.md)
+  — pg_search 0.26.2, prepared-query checks and MoReVec admission gaps.
 - [2026-10-12: upstream fixes and experiment readiness](research/2026-10-12/README.md)
   — pg_search permission/cancellation gates, PostgreSQL-V architecture evidence,
   and the prerequisites still missing for vector optimization experiments.
