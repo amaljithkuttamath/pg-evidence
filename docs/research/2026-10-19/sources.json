@@ -1,0 +1,81 @@
+{
+  "observed_on": "2026-10-19",
+  "releases": {
+    "pgrx": {
+      "tag_name": "v0.19.3",
+      "published_at": "2026-09-27T16:32:40Z",
+      "html_url": "https://github.com/pgcentralfoundation/pgrx/releases/tag/v0.19.3"
+    },
+    "pg_search": {
+      "tag_name": "v0.26.2",
+      "published_at": "2026-10-16T02:34:15Z",
+      "html_url": "https://github.com/paradedb/paradedb/releases/tag/v0.26.2"
+    },
+    "pgvectorscale": {
+      "tag_name": "0.9.1",
+      "published_at": "2026-09-04T12:19:57Z",
+      "html_url": "https://github.com/timescale/pgvectorscale/releases/tag/0.9.1"
+    }
+  },
+  "upstream_prs": [
+    {
+      "number": 6798,
+      "title": "fix: Evaluate STABLE search predicates at execution time",
+      "html_url": "https://github.com/paradedb/paradedb/pull/6798",
+      "merged_at": "2026-10-14T01:15:49Z",
+      "merge_commit_sha": "2e2bc0a12aa863d5997135fe100e87d1228b5589"
+    },
+    {
+      "number": 6807,
+      "title": "fix: Evaluate STABLE search predicates at execution time",
+      "html_url": "https://github.com/paradedb/paradedb/pull/6807",
+      "merged_at": "2026-10-14T01:54:01Z",
+      "merge_commit_sha": "cd4ddfa86d340a80db4076663edc89b0640d4277"
+    },
+    {
+      "number": 6769,
+      "title": "perf(vector): enable the exact plan and Auto located path for vector scans",
+      "html_url": "https://github.com/paradedb/paradedb/pull/6769",
+      "merged_at": "2026-10-14T21:00:50Z",
+      "merge_commit_sha": "ff42c49cec15d39db5e91051da4423a4dad4ec8f"
+    },
+    {
+      "number": 6825,
+      "title": "perf(vector): enable the exact plan and Auto located path for vector scans",
+      "html_url": "https://github.com/paradedb/paradedb/pull/6825",
+      "merged_at": "2026-10-15T14:30:28Z",
+      "merge_commit_sha": "4e2dcc222705a5a27f6ac3143265f4ef86109d71"
+    },
+    {
+      "number": 6835,
+      "title": "fix: preserve vector parallelism for runtime filters",
+      "html_url": "https://github.com/paradedb/paradedb/pull/6835",
+      "merged_at": "2026-10-15T16:06:48Z",
+      "merge_commit_sha": "5bcaf21c99350604615c836f953d495aa07da322"
+    },
+    {
+      "number": 6842,
+      "title": "fix: preserve vector parallelism for runtime filters",
+      "html_url": "https://github.com/paradedb/paradedb/pull/6842",
+      "merged_at": "2026-10-15T16:41:23Z",
+      "merge_commit_sha": "c699ea7b198b232c68b73aa8c91c1317f24d5557"
+    }
+  ],
+  "pgvector_tag": {
+    "name": "v0.8.7",
+    "commit": {
+      "sha": "f37c13f68b57d2c3472b2214fbcff699d6d34876",
+      "url": "https://api.github.com/repos/pgvector/pgvector/commits/f37c13f68b57d2c3472b2214fbcff699d6d34876"
+    }
+  },
+  "pg_search_release_commit": "d22f0fba4da0cc4491f7197b37cd5f3a0da09b12",
+  "dataset_repository": {
+    "url": "https://github.com/aabylay/ANN-benchmark-HQ",
+    "inspected_commit": "aeaafd4c926adf3f5bd3e2649341a325076369e5",
+    "files_read": [
+      "README.md",
+      "load_morevec.py"
+    ],
+    "dataset_admitted": false
+  }
+}

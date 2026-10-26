@@ -44,3 +44,13 @@ none is enabled by default.
 The project's coordinator runs the reasoning and opens GitHub proposals; Actions
 provides reproducible checks. No model credential is stored in this repository and
 no paid model/API evaluation is enabled without a budget decision.
+
+## Research records
+
+- [2026-10-26: index layout, cancellation and label-aware compression](research/2026-10-26/README.md)
+  — pg_search 0.26.3, LiPQ limitations and per-query recall reporting.
+- [2026-10-19: cached filters, adaptive search and dataset readiness](research/2026-10-19/README.md)
+  — pg_search 0.26.2, prepared-query checks and MoReVec admission gaps.
+- [2026-10-12: upstream fixes and experiment readiness](research/2026-10-12/README.md)
+  — pg_search permission/cancellation gates, PostgreSQL-V architecture evidence,
+  and the prerequisites still missing for vector optimization experiments.

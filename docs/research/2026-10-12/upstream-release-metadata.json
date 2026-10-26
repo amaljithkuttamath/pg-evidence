@@ -1,0 +1,79 @@
+{
+  "observed_on": "2026-10-12",
+  "source": "GitHub REST releases API; empty releases arrays are not evidence of no tags",
+  "repositories": [
+    {
+      "repo": "pgcentralfoundation/pgrx",
+      "releases": [
+        {
+          "tag_name": "v0.19.3",
+          "published_at": "2026-09-27T16:32:40Z",
+          "html_url": "https://github.com/pgcentralfoundation/pgrx/releases/tag/v0.19.3",
+          "prerelease": false
+        },
+        {
+          "tag_name": "v0.19.2",
+          "published_at": "2026-07-30T15:07:22Z",
+          "html_url": "https://github.com/pgcentralfoundation/pgrx/releases/tag/v0.19.2",
+          "prerelease": false
+        },
+        {
+          "tag_name": "v0.19.1",
+          "published_at": "2026-06-23T19:51:49Z",
+          "html_url": "https://github.com/pgcentralfoundation/pgrx/releases/tag/v0.19.1",
+          "prerelease": false
+        }
+      ]
+    },
+    {
+      "repo": "pgvector/pgvector",
+      "releases": []
+    },
+    {
+      "repo": "paradedb/paradedb",
+      "releases": [
+        {
+          "tag_name": "v0.26.1",
+          "published_at": "2026-10-08T22:34:53Z",
+          "html_url": "https://github.com/paradedb/paradedb/releases/tag/v0.26.1",
+          "prerelease": false
+        },
+        {
+          "tag_name": "v0.26.0",
+          "published_at": "2026-10-03T05:40:24Z",
+          "html_url": "https://github.com/paradedb/paradedb/releases/tag/v0.26.0",
+          "prerelease": false
+        },
+        {
+          "tag_name": "v0.26.0-rc.4",
+          "published_at": "2026-10-01T04:28:41Z",
+          "html_url": "https://github.com/paradedb/paradedb/releases/tag/v0.26.0-rc.4",
+          "prerelease": true
+        }
+      ]
+    },
+    {
+      "repo": "timescale/pgvectorscale",
+      "releases": [
+        {
+          "tag_name": "0.9.1",
+          "published_at": "2026-09-04T12:19:57Z",
+          "html_url": "https://github.com/timescale/pgvectorscale/releases/tag/0.9.1",
+          "prerelease": false
+        },
+        {
+          "tag_name": "0.9.0",
+          "published_at": "2025-11-04T16:30:12Z",
+          "html_url": "https://github.com/timescale/pgvectorscale/releases/tag/0.9.0",
+          "prerelease": false
+        },
+        {
+          "tag_name": "0.8.0",
+          "published_at": "2025-07-02T23:40:37Z",
+          "html_url": "https://github.com/timescale/pgvectorscale/releases/tag/0.8.0",
+          "prerelease": false
+        }
+      ]
+    }
+  ]
+}
