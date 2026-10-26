@@ -1,0 +1,92 @@
+{
+  "observed_on": "2026-10-26",
+  "releases": {
+    "pgrx": {
+      "tag_name": "v0.19.3",
+      "published_at": "2026-09-27T16:32:40Z",
+      "html_url": "https://github.com/pgcentralfoundation/pgrx/releases/tag/v0.19.3"
+    },
+    "pg_search": {
+      "tag_name": "v0.26.3",
+      "published_at": "2026-10-22T23:28:33Z",
+      "html_url": "https://github.com/paradedb/paradedb/releases/tag/v0.26.3"
+    },
+    "pgvectorscale": {
+      "tag_name": "0.9.1",
+      "published_at": "2026-09-04T12:19:57Z",
+      "html_url": "https://github.com/timescale/pgvectorscale/releases/tag/0.9.1"
+    }
+  },
+  "upstream_prs": [
+    {
+      "number": 6874,
+      "title": "perf: size default segments by query parallelism and partition keys",
+      "html_url": "https://github.com/paradedb/paradedb/pull/6874",
+      "merged_at": "2026-10-17T01:12:42Z",
+      "merge_commit_sha": "e756ed4bdef0109d91554755ca21a0fa23385826"
+    },
+    {
+      "number": 6882,
+      "title": "perf: size default segments by query parallelism and partition keys",
+      "html_url": "https://github.com/paradedb/paradedb/pull/6882",
+      "merged_at": "2026-10-17T17:19:37Z",
+      "merge_commit_sha": "3a00a67edf31bfb0f376d7b46733864a375e7f2b"
+    },
+    {
+      "number": 6901,
+      "title": "fix: remove 1K document flush cap for vectors",
+      "html_url": "https://github.com/paradedb/paradedb/pull/6901",
+      "merged_at": "2026-10-19T22:54:40Z",
+      "merge_commit_sha": "58ebb88e0f40a61a4f0bfb5257879b75aa51e7e0"
+    },
+    {
+      "number": 6920,
+      "title": "fix: remove 1K document flush cap for vectors",
+      "html_url": "https://github.com/paradedb/paradedb/pull/6920",
+      "merged_at": "2026-10-22T00:12:05Z",
+      "merge_commit_sha": "060e943a4d6aacae7a4d02f7bd4d5030f409bf6b"
+    },
+    {
+      "number": 6886,
+      "title": "fix: act on cancel and SIGTERM during DataFusion scans, regex walks and IVF training",
+      "html_url": "https://github.com/paradedb/paradedb/pull/6886",
+      "merged_at": "2026-10-21T07:18:57Z",
+      "merge_commit_sha": "c20bd97afc2fbed7539ffc06cf65166d54e8526a"
+    },
+    {
+      "number": 6964,
+      "title": "fix: act on cancel and SIGTERM during DataFusion scans, regex walks and IVF training",
+      "html_url": "https://github.com/paradedb/paradedb/pull/6964",
+      "merged_at": "2026-10-21T20:58:49Z",
+      "merge_commit_sha": "804451e9b9ab597fc6fb774e68cc7cb21d0e5527"
+    }
+  ],
+  "pgvector_tag": {
+    "name": "v0.8.7",
+    "commit": {
+      "sha": "f37c13f68b57d2c3472b2214fbcff699d6d34876",
+      "url": "https://api.github.com/repos/pgvector/pgvector/commits/f37c13f68b57d2c3472b2214fbcff699d6d34876"
+    }
+  },
+  "pgvector_changelog": "https://github.com/pgvector/pgvector/blob/v0.8.7/CHANGELOG.md",
+  "pgvector_release_date": "2026-10-01",
+  "postgresql": {
+    "observed_version": "18.6",
+    "release_date": "2026-08-13",
+    "url": "https://www.postgresql.org/docs/18/release-18-6.html",
+    "version_table": "https://www.postgresql.org/support/versioning/"
+  },
+  "pg_search_release_commit": "b3421945b45fdd177272dc9a204c7d47a7cdb527",
+  "papers": [
+    {
+      "version": "2610.17627v1",
+      "date": "2026-10-13",
+      "url": "https://arxiv.org/html/2610.17627v1"
+    },
+    {
+      "version": "2609.38053v2",
+      "date": "2026-09-30",
+      "url": "https://arxiv.org/html/2609.38053v2"
+    }
+  ]
+}
