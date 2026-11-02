@@ -1,0 +1,87 @@
+{
+  "observed_on": "2026-11-02",
+  "releases": {
+    "pgrx": {
+      "tag_name": "v0.19.3",
+      "published_at": "2026-09-27T16:32:40Z",
+      "html_url": "https://github.com/pgcentralfoundation/pgrx/releases/tag/v0.19.3",
+      "prerelease": false
+    },
+    "pg_search": {
+      "tag_name": "v0.26.4",
+      "published_at": "2026-10-29T22:12:59Z",
+      "html_url": "https://github.com/paradedb/paradedb/releases/tag/v0.26.4",
+      "prerelease": false
+    },
+    "pgvectorscale": {
+      "tag_name": "0.9.1",
+      "published_at": "2026-09-04T12:19:57Z",
+      "html_url": "https://github.com/timescale/pgvectorscale/releases/tag/0.9.1",
+      "prerelease": false
+    },
+    "pg_vectorsearch": {
+      "tag_name": "v0.1.0",
+      "published_at": "2026-10-13T13:12:31Z",
+      "html_url": "https://github.com/timescale/pg_vectorsearch/releases/tag/v0.1.0",
+      "prerelease": false
+    },
+    "pg_pinecone": {
+      "tag_name": "v0.11.0",
+      "published_at": "2026-10-26T01:19:38Z",
+      "html_url": "https://github.com/pinecone-io/pg_pinecone/releases/tag/v0.11.0",
+      "prerelease": false
+    }
+  },
+  "upstream_prs": [
+    {
+      "number": 6740,
+      "title": "fix: make merges and VACUUM's merger wait interruptible",
+      "html_url": "https://github.com/paradedb/paradedb/pull/6740",
+      "merged_at": "2026-10-24T13:18:22Z",
+      "merge_commit_sha": "185c60945a3d0a60280482cacd67d795022bd865"
+    },
+    {
+      "number": 7016,
+      "title": "fix: make merges and VACUUM's merger wait interruptible",
+      "html_url": "https://github.com/paradedb/paradedb/pull/7016",
+      "merged_at": "2026-10-24T22:28:06Z",
+      "merge_commit_sha": "f059dee0e260c4fa33267f9c6206c74caa354681"
+    },
+    {
+      "number": 6879,
+      "title": "fix: prevent readers from starving VACUUM cleanup",
+      "html_url": "https://github.com/paradedb/paradedb/pull/6879",
+      "merged_at": "2026-10-28T14:28:09Z",
+      "merge_commit_sha": "10de31bb4570e393745029f061787aa40345b706"
+    },
+    {
+      "number": 7072,
+      "title": "fix: prevent readers from starving VACUUM cleanup",
+      "html_url": "https://github.com/paradedb/paradedb/pull/7072",
+      "merged_at": "2026-10-28T15:09:32Z",
+      "merge_commit_sha": "c119720314307e2d00fbda49e041a6ba177990dd"
+    }
+  ],
+  "pg_vectorsearch_readme_commit": {
+    "sha": "5f71e47deb62057e7f8e3bc5c5f964bc343522b0",
+    "committed_at": "2026-10-27T15:21:17Z"
+  },
+  "pg_pinecone_readme_commit": {
+    "sha": "6f3d45cbd5d24d64b85900e65c82019f1a892275",
+    "committed_at": "2026-10-26T20:02:04Z"
+  },
+  "pgvector_tag": {
+    "name": "v0.8.7",
+    "commit": {
+      "sha": "f37c13f68b57d2c3472b2214fbcff699d6d34876",
+      "url": "https://api.github.com/repos/pgvector/pgvector/commits/f37c13f68b57d2c3472b2214fbcff699d6d34876"
+    }
+  },
+  "pg_search_release_commit": "727a888fd2801f013d765b1936c6e8eb3a3edf15",
+  "paper": {
+    "version": "2405.12497v1",
+    "published_on": "2024-05-21",
+    "url": "https://arxiv.org/abs/2405.12497v1",
+    "review_scope": "abstract; no reproduced results"
+  }
+}

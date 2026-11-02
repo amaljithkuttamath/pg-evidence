@@ -47,6 +47,8 @@ no paid model/API evaluation is enabled without a budget decision.
 
 ## Research records
 
+- [2026-11-02: native comparators and maintenance behavior](research/2026-11-02/README.md)
+  — pg_vectorsearch, pg_pinecone and pg_search 0.26.4 reclamation checks.
 - [2026-10-26: index layout, cancellation and label-aware compression](research/2026-10-26/README.md)
   — pg_search 0.26.3, LiPQ limitations and per-query recall reporting.
 - [2026-10-19: cached filters, adaptive search and dataset readiness](research/2026-10-19/README.md)
