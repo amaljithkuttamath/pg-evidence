@@ -1,0 +1,21 @@
+{
+  "observed_on": "2026-10-26",
+  "research_parent_commit": "46c52a528251b61eb378e318c4b4d0c79bb708bd",
+  "product_main_commit": "f3a2ce82ce93f901458d7ac10fe4a582a82fcc2f",
+  "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+  "python": "3.14.8",
+  "experiment_status": "not_started_prerequisites_incomplete",
+  "optimization_candidates_run": 0,
+  "database_runs": 0,
+  "holdout_runs": 0,
+  "release_evidence": false,
+  "files_sha256": {
+    "bench/protocol.json": "32047f7d7d3af25e4e7a8d1f4d21456526a1b870a7218f71cba536201d55e784",
+    "bench/compare_sql.py": "a0454f7bb8a57ad81a0333e39aaaa99236883e2ee8ba7e5360c8bb5301f2d587",
+    "bench/sql/smoke_fixture.sql": "75942bcd7c6ff0218253409093c9673488e04ee6f1499256014b573ceff90f94",
+    "bench/sql/smoke_extension.sql": "33fb9d44194030394f99a7bbbb00541c6f540f1afbef6ab7fc64a091a07c6890",
+    "bench/sql/smoke_sql.sql": "f09449e124aeac1a20c470cb5eb4622cfdba04d67ad15a90f12b1cc28a493873",
+    "baseline/schema.sql": "62468870e1167913c2ee0346151e728dd3207b03b431909b8bbcfd37305bf213",
+    "baseline/wrapper.sql": "c210e452c62a7eeb399f578815c5d254a69215dcb72154cc431e7b8fc16fd33f"
+  }
+}
