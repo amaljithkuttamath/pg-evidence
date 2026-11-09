@@ -47,6 +47,8 @@ no paid model/API evaluation is enabled without a budget decision.
 
 ## Research records
 
+- [2026-11-09: pgrx migration and joined-search controls](research/2026-11-09.md)
+  — four incompatible interrupt calls in the beta migration; permission and multiplicity checks for pg_search.
 - [2026-11-02: native comparators and maintenance behavior](research/2026-11-02/README.md)
   — pg_vectorsearch, pg_pinecone and pg_search 0.26.4 reclamation checks.
 - [2026-10-26: index layout, cancellation and label-aware compression](research/2026-10-26/README.md)
